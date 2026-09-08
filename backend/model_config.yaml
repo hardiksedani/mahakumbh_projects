@@ -1,0 +1,83 @@
+vision:
+  detector: yolo
+  model_path: yolov8n.pt
+  confidence_threshold: 0.5
+  person_class: 0
+
+fire:
+  fire_threshold: 0.7
+  smoke_threshold: 0.65
+  temporal_frames: 5
+  smoothing_window: 3
+
+crowd:
+  density_weights:
+    density: 0.30
+    growth_rate: 0.20
+    movement: 0.20
+    counter_flow: 0.15
+    fall: 0.15
+  high_density_threshold: 0.75
+  compression_threshold: 0.85
+
+person_down:
+  horizontal_seconds: 8
+  movement_threshold: 0.05
+  cluster_radius: 50
+
+speech:
+  provider: whisper
+  model: base
+  languages: [hi, mr, en]
+
+ocr:
+  provider: easyocr
+  languages: [en, hi]
+
+llm:
+  provider: mock
+  model: gpt-4o-mini
+  temperature: 0.2
+
+vision_llm:
+  provider: mock
+  model: gpt-4o
+
+embedding:
+  provider: sentence_transformer
+  model: all-MiniLM-L6-v2
+  similarity_threshold: 0.82
+
+forecasting:
+  provider: xgboost
+  horizons: [15, 30, 60]
+
+risk:
+  weights:
+    event_severity: 0.20
+    confidence: 0.15
+    crowd_density: 0.15
+    growth_rate: 0.10
+    report_count: 0.10
+    source_diversity: 0.05
+    camera_confirmation: 0.15
+    location_risk: 0.05
+    snan_mode: 0.05
+  thresholds:
+    green: 24
+    yellow: 49
+    orange: 74
+
+social_priority:
+  weights:
+    relevance: 0.25
+    urgency: 0.25
+    location_confidence: 0.15
+    report_count: 0.15
+    source_diversity: 0.10
+    reach_velocity: 0.10
+
+snan_mode:
+  sensitivity_multiplier: 1.5
+  forecast_frequency_multiplier: 2.0
+  alert_priority_boost: 20

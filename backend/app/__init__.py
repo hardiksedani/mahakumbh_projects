@@ -1,0 +1,1 @@
+"""KumbhRakshak Backend Application."""

@@ -130,9 +130,15 @@ class FirestoreDB:
         try:
             import firebase_admin
             from firebase_admin import credentials, firestore
+            from pathlib import Path
+            import json
 
             if not firebase_admin._apps:
-                if settings.firebase_service_account_path:
+                if settings.firebase_service_account_json:
+                    cert_dict = json.loads(settings.firebase_service_account_json)
+                    cred = credentials.Certificate(cert_dict)
+                    firebase_admin.initialize_app(cred, {"projectId": settings.firebase_project_id})
+                elif settings.firebase_service_account_path and Path(settings.firebase_service_account_path).exists():
                     cred = credentials.Certificate(settings.firebase_service_account_path)
                     firebase_admin.initialize_app(cred, {"projectId": settings.firebase_project_id})
                 elif settings.firebase_project_id:

@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     # Firebase Firestore
     firebase_project_id: str = ""
     firebase_service_account_path: str = ""
+    firebase_service_account_json: str = ""
     firebase_use_memory: bool = True
 
     redis_url: str = "redis://localhost:6379/0"

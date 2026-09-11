@@ -20,10 +20,6 @@ crowd:
   high_density_threshold: 0.75
   compression_threshold: 0.85
 
-person_down:
-  horizontal_seconds: 8
-  movement_threshold: 0.05
-  cluster_radius: 50
 
 speech:
   provider: whisper

@@ -292,13 +292,6 @@ async def inject_crowd(db: FirestoreDB = Depends(get_db)):
 
 
 
-@router.post("/simulation/inject-accident")
-
-async def inject_accident(db: FirestoreDB = Depends(get_db)):
-
-    await simulation_engine.inject_accident(db)
-
-    return {"status": "injected", "type": "accident"}
 
 
 
@@ -330,33 +323,6 @@ async def inject_misinfo(db: FirestoreDB = Depends(get_db)):
 
 
 
-@router.post("/simulation/inject-person-down")
-
-async def inject_person_down(db: FirestoreDB = Depends(get_db)):
-
-    cameras = await db.query("cameras", limit=1)
-
-    if cameras:
-
-        camera = cameras[0]
-
-        event = make_camera_event(
-
-            camera["id"], "MEDICAL",
-
-            zone_id=camera.get("zone_id"),
-
-            severity="HIGH", confidence=0.78,
-
-            latitude=camera["latitude"], longitude=camera["longitude"],
-
-            evidence={"event_type": "POSSIBLE_PERSON_DOWN", "duration_seconds": 12},
-
-        )
-
-        await db.create("camera_events", event)
-
-    return {"status": "injected", "type": "person_down"}
 
 
 

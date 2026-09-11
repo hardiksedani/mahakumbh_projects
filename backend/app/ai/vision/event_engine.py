@@ -101,37 +101,6 @@ class CrowdAnalyticsEngine:
         return self.history[-1] - self.history[-2]
 
 
-class PersonDownDetector:
-    def __init__(self):
-        config = get_model_config().get("person_down", {})
-        self.required_seconds = config.get("horizontal_seconds", 8)
-        self.tracks: Dict[str, Dict] = {}
-
-    def update(self, track_id: str, bbox: List[float], people_nearby: int, fps: float = 5.0) -> Optional[Dict]:
-        x1, y1, x2, y2 = bbox
-        width = max(x2 - x1, 1)
-        height = max(y2 - y1, 1)
-        aspect = width / height
-        is_horizontal = aspect > 1.2 and height < 80
-
-        if track_id not in self.tracks:
-            self.tracks[track_id] = {"horizontal_frames": 0, "last_bbox": bbox}
-        track = self.tracks[track_id]
-        if is_horizontal:
-            track["horizontal_frames"] += 1
-        else:
-            track["horizontal_frames"] = 0
-        track["last_bbox"] = bbox
-
-        duration = track["horizontal_frames"] / fps
-        if duration >= self.required_seconds and people_nearby >= 2:
-            return {
-                "event_type": "POSSIBLE_PERSON_DOWN",
-                "confidence": min(0.95, 0.5 + duration / 20),
-                "duration_seconds": round(duration, 1),
-                "people_nearby": people_nearby,
-            }
-        return None
 
 
 class MotionAnalyzer:
@@ -151,33 +120,13 @@ class MotionAnalyzer:
             return {"motion_score": 0.0, "abnormal": False}
 
 
-class AccidentDetector:
-    def detect(
-        self,
-        detections: List[Dict],
-        sudden_motion: bool,
-        person_down: bool,
-    ) -> Optional[Dict[str, Any]]:
-        vehicles = [d for d in detections if d.get("label") in ("car", "motorcycle", "bicycle", "truck", "bus")]
-        people = [d for d in detections if d.get("label") == "person"]
-        if person_down:
-            return {"event_type": "POSSIBLE_PERSON_DOWN", "confidence": 0.75}
-        if sudden_motion and vehicles and people:
-            return {"event_type": "POSSIBLE_VEHICLE_COLLISION", "confidence": 0.65}
-        if sudden_motion and len(vehicles) >= 2:
-            return {"event_type": "POSSIBLE_ROAD_ACCIDENT", "confidence": 0.6}
-        return None
-
-
 class VideoEventEngine:
     """Combines all vision modules into event classification."""
 
     def __init__(self):
         self.fire_detector = FireSmokeDetector()
         self.crowd_engine = CrowdAnalyticsEngine()
-        self.person_down = PersonDownDetector()
         self.motion = MotionAnalyzer()
-        self.accident = AccidentDetector()
         self.prev_gray = None
 
     def process_frame(self, frame: np.ndarray, detections: Dict[str, Any]) -> List[Dict[str, Any]]:
@@ -237,15 +186,6 @@ class VideoEventEngine:
                 "severity": "WARNING",
                 "confidence": 0.7,
                 "evidence": {"movement_abnormality": True, **crowd},
-            })
-
-        accident = self.accident.detect(det_list, motion_result.get("abnormal", False), False)
-        if accident:
-            events.append({
-                "event_type": "ACCIDENT",
-                "severity": "HIGH",
-                "confidence": accident["confidence"],
-                "evidence": accident,
             })
 
         return events

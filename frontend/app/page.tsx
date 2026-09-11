@@ -4,8 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { Header, KPICard, SeverityBadge, RiskBadge } from "@/components/ui";
 import { MapView } from "@/components/MapView";
 import { LostPersonRadar } from "@/components/LostPersonRadar";
-import { TempleLiveStatus } from "@/components/TempleLiveStatus";
-import { SafePingRadar } from "@/components/SafePingRadar";
+
 import { CommandCopilot } from "@/components/CommandCopilot";
 import { api, wsUrl, type KPIs, type Incident, type Camera, type SocialPost, type Alert } from "@/lib/api";
 import { Radio, ShieldAlert, AlertTriangle, Send, CheckCircle2, Flame, Users } from "lucide-react";
@@ -191,19 +190,11 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Lower Grid 1: AI Lost Person Radar & SafePing Portal */}
-        <div className="grid lg:grid-cols-2 gap-4">
-          <LostPersonRadar />
-          <SafePingRadar />
-        </div>
+        {/* AI Lost Person Radar */}
+        <LostPersonRadar />
 
-        {/* Lower Grid 2: Live Temple Queue Tracker & Social Media Rumor Debunker */}
-        <div className="grid lg:grid-cols-3 gap-4">
-          <div className="lg:col-span-1">
-            <TempleLiveStatus />
-          </div>
-
-          <div className="lg:col-span-2 card space-y-3">
+        {/* Social Intelligence & Fact-Checker Radar */}
+        <div className="card space-y-3">
             <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
               <div>
                 <h2 className="font-bold text-sm text-purple-400 flex items-center gap-2">
@@ -247,7 +238,6 @@ export default function Dashboard() {
               ))}
             </div>
           </div>
-        </div>
       </main>
 
       {/* Floating AI Copilot Drawer */}

@@ -16,8 +16,6 @@ type SimStatus = {
 const INJECT_BUTTONS = [
   { label: "Inject Fire", path: "/api/simulation/inject-fire", color: "bg-red-500/20 text-red-400" },
   { label: "Inject Crowd Surge", path: "/api/simulation/inject-crowd", color: "bg-orange-500/20 text-orange-400" },
-  { label: "Inject Accident", path: "/api/simulation/inject-accident", color: "bg-yellow-500/20 text-yellow-400" },
-  { label: "Inject Person Down", path: "/api/simulation/inject-person-down", color: "bg-purple-500/20 text-purple-400" },
   { label: "Inject Social Claim", path: "/api/simulation/inject-social-claim", color: "bg-blue-500/20 text-blue-400" },
   { label: "Inject Misinformation", path: "/api/simulation/inject-misinformation", color: "bg-pink-500/20 text-pink-400" },
   { label: "Inject Recycled Video", path: "/api/simulation/inject-recycled-video", color: "bg-gray-500/20 text-gray-400" },

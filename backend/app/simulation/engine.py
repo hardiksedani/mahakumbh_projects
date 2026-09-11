@@ -294,29 +294,6 @@ class SimulationEngine:
 
 
 
-    async def inject_accident(self, db: FirestoreDB):
-
-        cameras = await db.query("cameras", limit=1)
-
-        if cameras:
-
-            camera = cameras[0]
-
-            event = make_camera_event(
-
-                camera["id"], "ACCIDENT",
-
-                zone_id=camera.get("zone_id"),
-
-                severity="HIGH", confidence=0.7,
-
-                latitude=camera["latitude"], longitude=camera["longitude"],
-
-                evidence={"event_type": "POSSIBLE_VEHICLE_COLLISION"},
-
-            )
-
-            await db.create("camera_events", event)
 
 
 

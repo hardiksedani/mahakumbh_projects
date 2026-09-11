@@ -12,7 +12,6 @@ const NAV = [
   { href: "/cameras", label: "CCTV Vision" },
   { href: "/verify", label: "Verify Reel" },
   { href: "/simulation", label: "Snan Simulator" },
-  { href: "/offline", label: "Offline Safety" },
 ];
 
 export function Header({ snanMode }: { snanMode?: boolean }) {

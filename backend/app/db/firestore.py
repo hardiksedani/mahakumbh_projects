@@ -236,6 +236,32 @@ class FirestoreDB:
         docs = await self.query(collection, filters=filters, limit=1)
         return docs[0] if docs else None
 
+    async def find_within_radius(
+        self,
+        collection: str,
+        latitude: float,
+        longitude: float,
+        radius_km: float,
+        limit: int = 20,
+    ) -> List[dict]:
+        items = await self.query(collection, limit=500)
+        from app.db.repositories.base import haversine_km
+        matched = []
+        for item in items:
+            lat = item.get("latitude")
+            lon = item.get("longitude")
+            if lat is not None and lon is not None:
+                try:
+                    d = haversine_km(latitude, longitude, float(lat), float(lon))
+                    if d <= radius_km:
+                        c_item = dict(item)
+                        c_item["distance_km"] = round(d, 3)
+                        matched.append((d, c_item))
+                except (ValueError, TypeError):
+                    continue
+        matched.sort(key=lambda x: x[0])
+        return [item for _, item in matched[:limit]]
+
     async def health_check(self) -> dict:
         if self._use_memory:
             total = sum(len(v) for v in self._memory._data.values())
@@ -245,6 +271,7 @@ class FirestoreDB:
             return {"status": "healthy", "database": "firebase", "project": settings.firebase_project_id}
         except Exception as exc:
             return {"status": "unhealthy", "database": "firebase", "error": str(exc)}
+
 
 
 async def get_db():

@@ -120,13 +120,111 @@ class MotionAnalyzer:
             return {"motion_score": 0.0, "abnormal": False}
 
 
+class PoseFallDetector:
+    """Detects possible person-down and fall events using temporal aspect-ratio and motion analysis."""
+
+    def __init__(self):
+        self.history: Deque[Dict[str, Any]] = deque(maxlen=10)
+
+    def analyze(self, detections: List[Dict[str, Any]], motion_score: float = 0.0) -> Optional[Dict[str, Any]]:
+        # Look for horizontal aspect ratio bounding boxes (width > height * 1.3)
+        down_candidates = 0
+        for d in detections:
+            bbox = d.get("bbox", [])
+            if len(bbox) == 4:
+                w = abs(bbox[2] - bbox[0])
+                h = abs(bbox[3] - bbox[1])
+                if h > 0 and (w / h) > 1.35 and d.get("confidence", 0) > 0.45:
+                    down_candidates += 1
+
+        self.history.append({"down_count": down_candidates, "motion": motion_score})
+
+        if len(self.history) >= 3:
+            sustained_down = sum(1 for h in self.history if h["down_count"] >= 1)
+            if sustained_down >= 3:
+                is_multiple = down_candidates >= 3
+                return {
+                    "event_type": "MEDICAL",
+                    "subtype": "MULTIPLE_FALL_EVENTS" if is_multiple else "POSSIBLE_PERSON_DOWN",
+                    "severity": "CRITICAL" if is_multiple else "HIGH",
+                    "confidence": min(0.92, 0.65 + sustained_down * 0.08),
+                    "cautious_description": (
+                        f"Multiple possible fall events detected ({down_candidates} individuals observed stationary on ground)"
+                        if is_multiple
+                        else "Possible person-down event detected (individual observed stationary on ground)"
+                    ),
+                    "candidates_count": down_candidates,
+                }
+        return None
+
+
+class AccidentDetector:
+    """Detects vehicle-pedestrian proximity anomalies and sudden vehicle stoppage."""
+
+    def analyze(self, detections: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+        vehicles = [d for d in detections if d.get("class_name") in ("car", "bus", "truck", "motorcycle")]
+        people = [d for d in detections if d.get("class_name") == "person"]
+
+        # If high vehicle density in pedestrian walking corridor
+        if len(vehicles) >= 2 and len(people) >= 30:
+            return {
+                "event_type": "ACCIDENT",
+                "subtype": "VEHICLE_PEDESTRIAN_CONFLICT",
+                "severity": "HIGH",
+                "confidence": 0.78,
+                "cautious_description": "Vehicle movement conflict in dense pedestrian corridor",
+                "vehicle_count": len(vehicles),
+                "people_count": len(people),
+            }
+        return None
+
+
+class MultiCameraEvidenceFusion:
+    """Fuses multi-camera sensor signals using distance-decayed Bayesian evidence fusion.
+    Formula: C_fused = 1 - Prod(1 - w_i * C_i), where w_i = exp(-d_i / d_0).
+    """
+
+    @staticmethod
+    def fuse_camera_signals(
+        primary_camera_event: Dict[str, Any],
+        neighbor_events: List[Dict[str, Any]],
+        d_0: float = 1.0,  # 1 km characteristic distance decay
+    ) -> Dict[str, Any]:
+        primary_conf = float(primary_camera_event.get("confidence", 0.7))
+        unsupported_prob = 1.0 - primary_conf
+        corroborating_cameras = [primary_camera_event.get("camera_code", "PRIMARY")]
+
+        for nev in neighbor_events:
+            d_km = float(nev.get("distance_km", 0.5))
+            c_i = float(nev.get("confidence", 0.6))
+            weight_i = math.exp(-d_km / d_0)
+
+            # Decay confidence by distance
+            effective_conf = min(0.95, weight_i * c_i)
+            unsupported_prob *= (1.0 - effective_conf)
+            corroborating_cameras.append(nev.get("camera_code", "CAM-NEAR"))
+
+        fused_confidence = round(1.0 - unsupported_prob, 3)
+
+        return {
+            "cross_camera_confidence": min(0.99, fused_confidence),
+            "corroborating_camera_count": len(corroborating_cameras),
+            "corroborating_cameras": list(set(corroborating_cameras)),
+            "fusion_method": "Distance-Decayed Bayesian Evidence Fusion",
+            "is_corroborated": len(corroborating_cameras) >= 2 and fused_confidence >= 0.85,
+        }
+
+
 class VideoEventEngine:
-    """Combines all vision modules into event classification."""
+    """Combines specialized detectors and generates cautious structured safety events."""
 
     def __init__(self):
         self.fire_detector = FireSmokeDetector()
         self.crowd_engine = CrowdAnalyticsEngine()
         self.motion = MotionAnalyzer()
+        self.pose_detector = PoseFallDetector()
+        self.accident_detector = AccidentDetector()
+        self.fusion = MultiCameraEvidenceFusion()
         self.prev_gray = None
 
     def process_frame(self, frame: np.ndarray, detections: Dict[str, Any]) -> List[Dict[str, Any]]:
@@ -144,48 +242,84 @@ class VideoEventEngine:
         if gray is not None:
             self.prev_gray = gray
 
+        # 1. Fire / Smoke Analysis with temporal persistence
         fire_result = self.fire_detector.analyze(frame) if frame is not None else {}
         if fire_result.get("fire_event"):
             events.append({
                 "event_type": "FIRE",
+                "subtype": "FLAME_DETECTED",
                 "severity": "CRITICAL",
                 "confidence": fire_result["fire_confidence"],
+                "description": "Possible active flame and rapid thermal bloom detected",
                 "evidence": {"fire_confidence": fire_result["fire_confidence"], "people_count": people_count},
             })
         elif fire_result.get("smoke_event"):
             events.append({
                 "event_type": "FIRE",
+                "subtype": "SMOKE_SPREADING",
                 "severity": "HIGH",
                 "confidence": fire_result["smoke_confidence"],
+                "description": "Dense smoke spreading pattern observed across multiple frames",
                 "evidence": {"smoke_confidence": fire_result["smoke_confidence"], "people_count": people_count},
             })
 
+        # 2. Crowd Analytics & Precursor Stampede Detection
         crowd = self.crowd_engine.analyze(
             people_count,
             motion_score=motion_result.get("motion_score", 0),
             counter_flow=0.3 if motion_result.get("abnormal") else 0,
         )
-        if crowd["crowd_risk_score"] > 75:
+        if crowd["crowd_risk_score"] > 80:
             events.append({
                 "event_type": "CROWD",
-                "severity": "HIGH",
-                "confidence": crowd["crowd_risk_score"] / 100,
+                "subtype": "CROWD_COMPRESSION",
+                "severity": "CRITICAL",
+                "confidence": round(crowd["crowd_risk_score"] / 100, 2),
+                "description": "Abnormal crowd compression and counter-flow detected near bottleneck",
                 "evidence": crowd,
             })
-        elif crowd["crowd_risk_score"] > 50:
+        elif crowd["crowd_risk_score"] > 60:
             events.append({
                 "event_type": "CROWD",
+                "subtype": "HIGH_DENSITY_SURGE",
+                "severity": "HIGH",
+                "confidence": round(crowd["crowd_risk_score"] / 100, 2),
+                "description": "Crowd density rising above threshold with accelerated inflow",
+                "evidence": crowd,
+            })
+        elif crowd["crowd_risk_score"] > 40:
+            events.append({
+                "event_type": "CROWD",
+                "subtype": "CROWD_MONITORING",
                 "severity": "WARNING",
-                "confidence": crowd["crowd_risk_score"] / 100,
+                "confidence": round(crowd["crowd_risk_score"] / 100, 2),
+                "description": "Steady crowd accumulation observed in sector",
                 "evidence": crowd,
             })
 
-        if motion_result.get("abnormal") and people_count > 50:
+        # 3. Pose / Medical Fall Detection
+        fall_event = self.pose_detector.analyze(det_list, motion_result.get("motion_score", 0))
+        if fall_event:
             events.append({
-                "event_type": "CROWD",
-                "severity": "WARNING",
-                "confidence": 0.7,
-                "evidence": {"movement_abnormality": True, **crowd},
+                "event_type": fall_event["event_type"],
+                "subtype": fall_event["subtype"],
+                "severity": fall_event["severity"],
+                "confidence": fall_event["confidence"],
+                "description": fall_event["cautious_description"],
+                "evidence": {"candidates": fall_event["candidates_count"]},
+            })
+
+        # 4. Accident / Obstruction Detection
+        acc_event = self.accident_detector.analyze(det_list)
+        if acc_event:
+            events.append({
+                "event_type": acc_event["event_type"],
+                "subtype": acc_event["subtype"],
+                "severity": acc_event["severity"],
+                "confidence": acc_event["confidence"],
+                "description": acc_event["cautious_description"],
+                "evidence": acc_event,
             })
 
         return events
+

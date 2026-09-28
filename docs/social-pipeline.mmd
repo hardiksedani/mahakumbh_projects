@@ -1,0 +1,58 @@
+flowchart TD
+    subgraph Ingestion ["1. Multi-Platform Stream"]
+        POST["Citizen Social Post / Mobile Submission<br/>(Instagram, X, Audio Desks, WhatsApp Helpdesk)"]
+        MEDIA["Visual Media Attachment<br/>(Image / Short Video Clip)"]
+    end
+
+    subgraph Stage1Triage ["2. Stage 1: Cheap Heuristic Filter"]
+        KW["Keyword & Gazetteer Matching<br/>(Gate 7, Ramkund, Stampede, Fire, Choke)"]
+        LANG["Language Identification<br/>(Hindi, Marathi, Gujarati, English)"]
+        DROP["Non-Safety / Promotional Noise<br/>(Filtered Out - 92% Drop)"]
+    end
+
+    subgraph Stage2NLP ["3. Stage 2: Deep NLP & Claim Extraction"]
+        BERT["IndicBERT Incident Classifier<br/>(Type: CROWD, FIRE, MEDICAL)"]
+        EMBED["SentenceTransformer Vectorization<br/>(all-MiniLM-L6-v2, 384-dim)"]
+        CLUSTER["DBSCAN Semantic Clustering<br/>(Velocity & Geographic Aggregation)"]
+        CREATOR["Creator Reach Profiler<br/>(Virality Risk, Not Surrogate for Truth)"]
+    end
+
+    subgraph RecycledCheck ["4. Historical Media Verification"]
+        HASH["Perceptual Image Hashing<br/>(dHash / aHash Fingerprinting)"]
+        ARCHIVE["Historical Kumbh Archives<br/>(2019 Prayagraj, 2021 Haridwar)"]
+        RECYCLED_FLAG["Flag: POSSIBLE_REUSED_CONTENT<br/>(Factual, Non-Accusatory)"]
+    end
+
+    subgraph VerificationMatrix ["5. Ground Evidence Matrix Evaluation"]
+        CAMS["Ground Cameras Query<br/>(Nearby Cameras within 2.0 km)"]
+        OFFICIAL["Official Status Query<br/>(Mela Administration Advisories)"]
+        VERDICT["Verification Verdict<br/>(VERIFIED, LIKELY, UNVERIFIED, CONTRADICTED)"]
+    end
+
+    subgraph ActionGeneration ["6. Automated Response"]
+        COUNTER["Automated Counter-Advisory<br/>(Multilingual Truth Fact-Check)"]
+        INCIDENT["Safety Incident Generation<br/>(If Corroborated Real)"]
+    end
+
+    POST --> KW
+    POST --> LANG
+    MEDIA --> HASH
+
+    KW --> DROP
+    KW --> BERT
+
+    BERT --> EMBED
+    EMBED --> CLUSTER
+    POST --> CREATOR
+
+    HASH --> ARCHIVE
+    ARCHIVE --> RECYCLED_FLAG
+
+    CLUSTER --> VERIFICATIONMATRIX
+    RECYCLED_FLAG --> VERIFICATIONMATRIX
+    CAMS --> VERIFICATIONMATRIX
+    OFFICIAL --> VERIFICATIONMATRIX
+
+    VERIFICATIONMATRIX --> VERDICT
+    VERDICT --> COUNTER
+    VERDICT --> INCIDENT

@@ -13,11 +13,10 @@ from app.db.firestore import FirestoreDB
 from app.db.session import get_db
 
 from app.schemas import (
-
     SocialPostIngest, SocialPostResponse, VerifyUrlRequest, VerifyUrlResponse,
-
     VerificationAnalyzeRequest, VerificationResponse, SimulationStatus,
-
+    CounterMessageRequest, CounterMessageResponse, SentimentPulseResponse,
+    MultilingualBroadcastRequest, MultilingualBroadcastResponse,
 )
 
 from app.services.social_service import SocialService
@@ -155,6 +154,28 @@ async def fetch_mock_feed(limit: int = 10, db: FirestoreDB = Depends(get_db)):
     return {"ingested": len(ingested), "post_ids": ingested}
 
 
+@router.get("/social/sentiment", response_model=SentimentPulseResponse)
+async def get_social_sentiment(db: FirestoreDB = Depends(get_db)):
+    """Outcome Parameter 10.2: Sentiment Tracking, Emerging Crisis Detection, and Regional Influx Intent."""
+    svc = SocialService()
+    return await svc.get_sentiment_and_crisis_pulse(db)
+
+
+@router.post("/social/counter-message", response_model=CounterMessageResponse)
+async def generate_counter_message(req: CounterMessageRequest):
+    """Outcome Parameter 10.1: Automated Multilingual Counter-Messaging for Verified Rumors."""
+    svc = SocialService()
+    return svc.generate_counter_message(req.model_dump())
+
+
+@router.post("/social/generate-multilingual", response_model=MultilingualBroadcastResponse)
+async def generate_multilingual(req: MultilingualBroadcastRequest):
+    """Outcome Parameter 10.3: Automated Multilingual Content Generation for Official Handles."""
+    svc = SocialService()
+    return svc.generate_multilingual_content(req.model_dump())
+
+
+
 
 
 
@@ -259,10 +280,33 @@ async def sim_reset(db: FirestoreDB = Depends(get_db)):
 
 
 @router.get("/simulation/status", response_model=SimulationStatus)
-
 async def sim_status():
-
     return simulation_engine.status
+
+
+@router.post("/simulation/pause", response_model=SimulationStatus)
+async def sim_pause():
+    return simulation_engine.pause()
+
+
+@router.post("/simulation/resume", response_model=SimulationStatus)
+async def sim_resume():
+    return simulation_engine.resume()
+
+
+@router.post("/simulation/speed")
+async def sim_speed(multiplier: float = 1.0):
+    new_speed = simulation_engine.set_speed(multiplier)
+    return {"status": "success", "speed_multiplier": new_speed}
+
+
+@router.get("/simulation/scenarios")
+async def sim_scenarios():
+    return {
+        "status": "success",
+        "total_scenarios": len(simulation_engine.list_scenarios()),
+        "scenarios": simulation_engine.list_scenarios(),
+    }
 
 
 

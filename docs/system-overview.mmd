@@ -1,0 +1,68 @@
+flowchart TD
+    subgraph MultiSourceIngestion ["1. Multi-Source Ingestion Layer"]
+        CAMS["Ground CCTV Streams & Drone Video<br/>(RTSP / HLS / IP Nodes)"]
+        SOCIAL["Social Streams & Citizen App<br/>(Instagram, X, Citizen Reports, PA Audio)"]
+        TRANS["Transport & Station Hubs<br/>(Nashik Road, Bus Depots)"]
+        HYDRO["River Hydro Buoys & Weather<br/>(Godavari Water Velocity, Rain Radar)"]
+    end
+
+    subgraph AIProcessingLayer ["2. AI Processing & Feature Extraction"]
+        YOLO["YOLOv8 Object Detection & ByteTrack<br/>(Heads, Vehicles, Perimeters)"]
+        OPTICAL["Farnebäck Optical Flow<br/>(Turbulence, Counter-Flow Vectors)"]
+        THERMAL["HSV Temporal Heat Bloom<br/>(Tent Fire vs Campfire)"]
+        TRIAGE["Social Two-Stage Triage<br/>(IndicBERT & MiniLM Embeddings)"]
+        RECYCLED["Recycled Media Detector<br/>(Perceptual Hash & Archive Index)"]
+    end
+
+    subgraph CorrelationAndVerification ["3. Correlation, Verification & Risk Engine"]
+        FUSION["Bayesian Multi-Camera Fusion<br/>C_fused = 1 - ∏(1 - wᵢ · Cᵢ)"]
+        VERIFY["Evidence-Based Verifier<br/>(Cross-Source Evidence Matrix)"]
+        FORECAST["XGBoost Crowd Forecast<br/>(15m, 30m, 60m p10/p50/p90)"]
+        RISK["10-Factor Explainable Risk Scoring<br/>(0–100 Causal Severity Matrix)"]
+    end
+
+    subgraph DecisionSupport ["4. AI Decision Support & SOP Generation"]
+        DAG["Lineage DAG Graph Engine<br/>(Claim → Sensor → Incident → Action)"]
+        SOP["SOP Recommender<br/>(Diversions, Holding Areas, QRT)"]
+        COUNTER["Multilingual Counter-Advisory<br/>(HI, MR, GU, EN Automated Debunk)"]
+    end
+
+    subgraph HumanInTheLoopCommand ["5. Human-in-the-Loop Command Centre"]
+        OFFICER["Sector Commander / Duty Officer<br/>(Badge Auth & SOP Confirmation)"]
+        AUDIT["Immutable Audit Trail<br/>(dispatch_audit_log)"]
+    end
+
+    subgraph PhysicalExecution ["6. Field Dispatch & Execution"]
+        QRT["Quick Response Teams (QRT)<br/>(Motorcycle Medics, Fire Brigades)"]
+        GATES["Dynamic Holding Gate Barriers<br/>(Tapovan, Laxman Jhula Diversion)"]
+        PA["Mela PA & Devotee Mobile App<br/>(Official Advisory Broadcast)"]
+    end
+
+    CAMS --> YOLO
+    CAMS --> OPTICAL
+    CAMS --> THERMAL
+    SOCIAL --> TRIAGE
+    SOCIAL --> RECYCLED
+    TRANS --> FORECAST
+    HYDRO --> RISK
+
+    YOLO --> FUSION
+    OPTICAL --> FUSION
+    THERMAL --> FUSION
+    TRIAGE --> VERIFY
+    RECYCLED --> VERIFY
+
+    FUSION --> VERIFY
+    FUSION --> RISK
+    VERIFY --> DAG
+    FORECAST --> RISK
+    RISK --> SOP
+    VERIFY --> COUNTER
+
+    DAG --> SOP
+    SOP --> OFFICER
+    COUNTER --> OFFICER
+    OFFICER --> AUDIT
+    OFFICER --> QRT
+    OFFICER --> GATES
+    OFFICER --> PA

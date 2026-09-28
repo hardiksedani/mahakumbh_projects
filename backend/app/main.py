@@ -8,6 +8,7 @@ from app.core.websocket_manager import ws_manager
 from app.db.session import init_db_check
 from app.api.routes import router as main_router
 from app.api.social_sim_routes import router as social_router
+from app.api.v1_routes import router as v1_router
 from app.schemas import HealthResponse, AIHealthResponse
 
 app = FastAPI(
@@ -26,6 +27,8 @@ app.add_middleware(
 
 app.include_router(main_router, prefix="/api")
 app.include_router(social_router, prefix="/api")
+app.include_router(v1_router, prefix="/api/v1")
+app.include_router(v1_router, prefix="/api")
 
 
 @app.on_event("startup")

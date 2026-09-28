@@ -295,3 +295,105 @@ class SimulationStatus(BaseModel):
     total_steps: int
     major_snan_mode: bool
     message: str
+    event: Optional[str] = "normal"
+    paused: Optional[bool] = False
+    speed_multiplier: Optional[float] = 1.0
+    active_scenario: Optional[str] = "MAJOR_SNAN_CANONICAL"
+
+
+# Outcome Parameter 10.1: Counter-Messaging
+class CounterMessageRequest(BaseModel):
+    claim: str
+    incident_type: Optional[str] = "STAMPEDE"
+    location_name: Optional[str] = "Gate 7"
+    verification_status: str = "CONTRADICTED"
+    ground_evidence_summary: Optional[str] = None
+
+
+class CounterMessageResponse(BaseModel):
+    original_claim: str
+    verification_status: str
+    official_debunk_en: str
+    official_debunk_hi: str
+    official_debunk_mr: str
+    official_debunk_gu: str
+    confidence: float
+    recommended_channels: List[str]
+    suggested_hashtags: List[str]
+    panic_trigger_index: int
+    viral_velocity: str
+
+
+# Outcome Parameter 10.2: Sentiment & Crisis Pulse
+class SentimentBreakdown(BaseModel):
+    positive: float
+    neutral: float
+    agitated: float
+    panicked: float
+    frustrated: float
+    overall_mood: str
+    total_analyzed: int
+
+
+class EmergingCrisisItem(BaseModel):
+    id: str
+    category: str  # ROAD_BLOCKED, WATER_SHORTAGE, SANITATION, POWER_OUTAGE, CHOKE_POINT
+    title: str
+    location: str
+    report_count: int
+    sentiment_score: float  # -1.0 to 1.0
+    severity: str  # HIGH, MEDIUM, LOW
+    first_reported: str
+    suggested_action: str
+    status: str = "DETECTED"
+
+
+class RegionalInfluxItem(BaseModel):
+    state: str
+    share_pct: float
+    dominant_intent: str
+    sentiment: str
+    estimated_pilgrims: str
+
+
+class SentimentTimelinePoint(BaseModel):
+    time: str
+    positive: int
+    neutral: int
+    negative: int
+
+
+class SentimentPulseResponse(BaseModel):
+    breakdown: SentimentBreakdown
+    emerging_crises: List[EmergingCrisisItem]
+    regional_influx: List[RegionalInfluxItem]
+    timeline: List[SentimentTimelinePoint]
+    last_updated: str
+
+
+# Outcome Parameter 10.3: Multilingual Official Content Studio
+class MultilingualBroadcastRequest(BaseModel):
+    topic: str  # TRAFFIC_DIVERSION, SHAHI_SNAN, GHAT_CAPACITY, ADVISORY, EMERGENCY
+    title: str
+    key_details: str
+    target_locations: Optional[List[str]] = Field(default_factory=list)
+    channels: Optional[List[str]] = Field(default_factory=lambda: ["x_twitter", "whatsapp", "instagram"])
+
+
+class ChannelContent(BaseModel):
+    channel: str
+    english: str
+    hindi: str
+    marathi: str
+    gujarati: str
+    hashtags: List[str]
+
+
+class MultilingualBroadcastResponse(BaseModel):
+    id: str
+    topic: str
+    title: str
+    generated_at: str
+    channels: Dict[str, ChannelContent]
+    verified_stamp: bool = True
+

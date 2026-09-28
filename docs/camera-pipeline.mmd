@@ -1,0 +1,41 @@
+flowchart LR
+    subgraph StreamInput ["1. Edge Video Input"]
+        RTSP["RTSP / IP Video Stream<br/>(1080p @ 15–30 FPS)"]
+    end
+
+    subgraph PrimaryInference ["2. Frame Processing & Inference"]
+        DECODE["Hardware Decode<br/>(NVDEC / CPU)"]
+        YOLO["YOLOv8 Detection<br/>(Person, Vehicle, Density)"]
+        TRACK["ByteTrack Tracker<br/>(Trajectory, Sudden Speed)"]
+        FLOW["Farnebäck Optical Flow<br/>(Counter-Flow & Turbulence)"]
+        FIRE["HSV Temporal Mask<br/>(5-Frame Flame/Smoke Persistence)"]
+        POSE["Pose / Fall Heuristic<br/>(Aspect Ratio & Motion Stoppage)"]
+    end
+
+    subgraph EvidenceFusion ["3. Spatial-Temporal Bayesian Fusion"]
+        GEO["Haversine Geofence<br/>(d ≤ 2.0 km)"]
+        DECAY["Distance Weighting<br/>wᵢ = exp(-dᵢ / d₀)"]
+        BAYES["Multi-Camera Combination<br/>C_fused = 1 - ∏(1 - wᵢ · Cᵢ)"]
+    end
+
+    subgraph OutputEvent ["4. Corroborated Safety Event"]
+        EVENT["Structured Camera Event<br/>(event_type, fused_conf, cameras)"]
+        INCIDENT["Incident Escalation<br/>(Risk Score > Threshold)"]
+    end
+
+    RTSP --> DECODE
+    DECODE --> YOLO
+    DECODE --> FLOW
+    DECODE --> FIRE
+    YOLO --> TRACK
+    YOLO --> POSE
+
+    YOLO --> GEO
+    FLOW --> GEO
+    FIRE --> GEO
+    POSE --> GEO
+
+    GEO --> DECAY
+    DECAY --> BAYES
+    BAYES --> EVENT
+    EVENT --> INCIDENT

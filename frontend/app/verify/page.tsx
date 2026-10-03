@@ -48,17 +48,20 @@ export default function VerifyPage() {
   const [activeLang, setActiveLang] = useState<"en" | "hi" | "mr" | "gu">("hi");
   const [copied, setCopied] = useState(false);
   const [broadcastNotice, setBroadcastNotice] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleApplyPreset = (preset: typeof PRESETS[0]) => {
     setUrl(preset.url);
     setCaption(preset.claim);
     setResult(null);
     setCounterMsg(null);
+    setError(null);
   };
 
   const verifyClaim = async () => {
     setLoading(true);
     setBroadcastNotice(null);
+    setError(null);
     try {
       // 1. Verify URL / Caption against ground truth cameras
       const res = await api<VerifyResult>("/api/social/verify-url", {
@@ -77,8 +80,10 @@ export default function VerifyPage() {
         }),
       });
       setCounterMsg(debunk);
-    } catch (e) {
-      console.error("Verification failed", e);
+    } catch {
+      setResult(null);
+      setCounterMsg(null);
+      setError("Verification requires the demo backend. No claim was verified and no message was generated.");
     } finally {
       setLoading(false);
     }
@@ -91,7 +96,7 @@ export default function VerifyPage() {
   };
 
   const handleBroadcast = () => {
-    setBroadcastNotice("📢 Official Fact-Check Advisory broadcasted to WhatsApp Channels, X (Twitter), and Mela LED screens!");
+    setBroadcastNotice("Demo preview only. Nothing was sent to WhatsApp, X, or public displays.");
     setTimeout(() => setBroadcastNotice(null), 5000);
   };
 
@@ -128,6 +133,7 @@ export default function VerifyPage() {
             <span>{broadcastNotice}</span>
           </div>
         )}
+        {error && <div role="alert" className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200">{error}</div>}
 
         <div className="grid lg:grid-cols-12 gap-5">
           {/* Left Column: Input Form & Presets */}
@@ -222,7 +228,7 @@ export default function VerifyPage() {
                   <div className="p-3 rounded-lg bg-slate-950/80 border border-slate-800 text-xs text-slate-300 leading-relaxed flex items-start gap-2">
                     <Camera className="w-4 h-4 text-orange-400 shrink-0 mt-0.5" />
                     <span>
-                      <strong className="text-orange-400">CCTV Evidence:</strong> {result.reasoning}. Cross-referenced against sector cameras CAM-102 & CAM-103 within 2 km radius.
+                      <strong className="text-orange-400">Demo evidence summary:</strong> {result.reasoning}
                     </span>
                   </div>
                 </div>
@@ -306,7 +312,7 @@ export default function VerifyPage() {
                           onClick={handleBroadcast}
                           className="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-bold flex items-center gap-1 shadow-md shadow-emerald-500/20 transition-all"
                         >
-                          <Send className="w-3 h-3" /> 1-Click Public Debunk Broadcast
+                          <Send className="w-3 h-3" /> Preview public debunk
                         </button>
                       </div>
                     </div>

@@ -1,0 +1,273 @@
+{"kind":"deck","id":"pr/6fzwwl","name":"Deck"}
+{"kind":"layout","layoutId":"8f38bf3a-b02c-4ef9-91e2-533b2e0efc3e","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"b5e6221b-3e8a-4335-91f5-9f807d0d2780","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/l4qen9","slide":1,"title":"Department of Artificial Intelligence & Data Science","textShapes":5}
+{"kind":"shape","id":"sh/craxsbq9","slide":1,"bbox":[75,150,1300,410]}
+{"kind":"textbox","id":"sh/dsjelw7u","slide":1,"text":"Department of Artificial Intelligence & Data Science","textPreview":"Department of Artificial Intelligence & Data Science","textChars":52,"textLines":1,"bbox":[300,155,950,28]}
+{"kind":"textbox","id":"sh/edsfe18f","slide":1,"text":"Academic Year 2025-26","textPreview":"Academic Year 2025-26","textChars":21,"textLines":1,"bbox":[460,202,630,26]}
+{"kind":"textbox","id":"sh/zelgn6p0","slide":1,"text":"KumbhRakshak","textPreview":"KumbhRakshak","textChars":12,"textLines":1,"bbox":[270,250,1050,45]}
+{"kind":"textbox","id":"sh/0fuxgbq5","slide":1,"text":"Safety and Decision Support for Nashik-Trimbakeshwar","textPreview":"Safety and Decision Support for Nashik-Trimbakeshwar","textChars":52,"textLines":1,"bbox":[250,295,1090,38]}
+{"kind":"textbox","id":"sh/1g3ypg7q","slide":1,"text":"Hardik Sedani T8-70  |  Shubham Vishwakarma T5-13","textPreview":"Hardik Sedani T8-70  |  Shubham Vishwakarma T5-13","textChars":49,"textLines":1,"bbox":[300,449,1020,30]}
+{"kind":"image","id":"im/mlcbaxcb","slide":1,"name":"","alt":"Original SAARTHI slide 1 background","bbox":[0,0,1440,810]}
+{"kind":"notes","id":"nt/l4qen9","slide":1,"text":"This is a project prototype presentation. It does not claim approval or operational use by the Maharashtra authorities."}
+{"kind":"slide","id":"sl/411hx6","slide":2,"title":"Slide 2","textShapes":0}
+{"kind":"image","id":"im/zqhcjuxs","slide":2,"name":"","alt":"Original SAARTHI slide 2 background","bbox":[0,0,1440,810]}
+{"kind":"notes","id":"nt/411hx6","slide":2,"text":"The screenshots of the working website appear in the implementation, results and 3D place guide sections."}
+{"kind":"slide","id":"sl/r3v6au","slide":3,"title":"KumbhRakshak","textShapes":6}
+{"kind":"shape","id":"sh/ut8jy5k7","slide":3,"bbox":[180,207,818,385]}
+{"kind":"shape","id":"sh/vuh07a1s","slide":3,"bbox":[1014,198,408,350]}
+{"kind":"textbox","id":"sh/4ja14f29","slide":3,"text":"KumbhRakshak","textPreview":"KumbhRakshak","textChars":12,"textLines":1,"bbox":[190,210,790,31]}
+{"kind":"textbox","id":"sh/5kjidkju","slide":3,"text":"A place-linked command-centre prototype for the upcoming Nashik-Trimbakeshwar Simhastha.","textPreview":"A place-linked command-centre prototype for the upcoming Nashik-Trimbakeshwar Simhastha.","textChars":88,"textLines":1,"bbox":[190,248,780,55]}
+{"kind":"textbox","id":"sh/ihsj2pk3","slide":3,"text":"•  Shows locations, crowd indicators and incident information together","textPreview":"•  Shows locations, crowd indicators and incident information together","textChars":70,"textLines":1,"bbox":[224,315,740,49]}
+{"kind":"textbox","id":"sh/3i10bu1o","slide":3,"text":"•  Uses a 3D guide to explain where ghats and facilities belong","textPreview":"•  Uses a 3D guide to explain where ghats and facilities belong","textChars":63,"textLines":1,"bbox":[224,378,740,49]}
+{"kind":"textbox","id":"sh/kn6hsv25","slide":3,"text":"•  Links each place to its relevant monitoring or response portal","textPreview":"•  Links each place to its relevant monitoring or response portal","textChars":65,"textLines":1,"bbox":[224,441,740,49]}
+{"kind":"textbox","id":"sh/lofi103q","slide":3,"text":"•  Requires official GIS, live feeds and validation before field use","textPreview":"•  Requires official GIS, live feeds and validation before field use","textChars":68,"textLines":1,"bbox":[224,504,740,49]}
+{"kind":"image","id":"im/gfq10jip","slide":3,"name":"","alt":"Original SAARTHI slide 3 background","bbox":[0,0,1440,810]}
+{"kind":"image","id":"im/et8jqtgn","slide":3,"name":"","alt":"KumbhRakshak overview screenshot","bbox":[1017,201,400,340]}
+{"kind":"notes","id":"nt/r3v6au","slide":3,"text":"Website screenshot captured from the local project demo on 3 October 2026. Indicators are simulated."}
+{"kind":"slide","id":"sl/k3xhlb","slide":4,"title":"A large event needs clear place context when crowd, camera and public reports...","textShapes":9}
+{"kind":"shape","id":"sh/103ax8vq","slide":4,"bbox":[177,217,1225,43]}
+{"kind":"textbox","id":"sh/gzu943ul","slide":4,"text":"A large event needs clear place context when crowd, camera and public reports arrive separately.","textPreview":"A large event needs clear place context when crowd, camera and public reports arrive separately.","textChars":96,"textLines":1,"bbox":[182,223,1200,30]}
+{"kind":"shape","id":"sh/ru1srydo","slide":4,"bbox":[615,355,174,66]}
+{"kind":"textbox","id":"sh/69srytc3","slide":4,"text":"Ghat","textPreview":"Ghat","textChars":4,"textLines":1,"bbox":[617,358,170,28]}
+{"kind":"textbox","id":"sh/twjat8vu","slide":4,"text":"Crowd bottlenecks","textPreview":"Crowd bottlenecks","textChars":17,"textLines":1,"bbox":[620,389,165,24]}
+{"kind":"shape","id":"sh/sva903u9","slide":4,"bbox":[192,565,206,70]}
+{"kind":"textbox","id":"sh/j61sneds","slide":4,"text":"Unclear links between ghats, routes and relevant portals","textPreview":"Unclear links between ghats, routes and relevant portals","textChars":56,"textLines":1,"bbox":[195,568,198,63]}
+{"kind":"shape","id":"sh/i58rutc7","slide":4,"bbox":[470,565,206,70]}
+{"kind":"textbox","id":"sh/sjalkne1","slide":4,"text":"Crowd and incident inputs arrive in separate views","textPreview":"Crowd and incident inputs arrive in separate views","textChars":50,"textLines":1,"bbox":[473,568,198,63]}
+{"kind":"shape","id":"sh/dk32d8fm","slide":4,"bbox":[751,565,206,70]}
+{"kind":"textbox","id":"sh/qhs3idwv","slide":4,"text":"Unverified posts can spread during an event","textPreview":"Unverified posts can spread during an event","textChars":43,"textLines":1,"bbox":[754,568,198,63]}
+{"kind":"shape","id":"sh/ri1kbixg","slide":4,"bbox":[1039,565,206,70]}
+{"kind":"textbox","id":"sh/4fa1g3ep","slide":4,"text":"Human approval and clear context remain essential","textPreview":"Human approval and clear context remain essential","textChars":49,"textLines":1,"bbox":[1042,568,198,63]}
+{"kind":"shape","id":"sh/5gj298fa","slide":4,"bbox":[160,651,1280,69]}
+{"kind":"textbox","id":"sh/idsjetwz","slide":4,"text":"Research Gap:","textPreview":"Research Gap:","textChars":13,"textLines":1,"bbox":[181,668,180,27]}
+{"kind":"textbox","id":"sh/3e1k7yx4","slide":4,"text":"A place-linked view that connects signals, facilities and human response is missing from many tools.","textPreview":"A place-linked view that connects signals, facilities and human response is missing from many tools.","textChars":100,"textLines":1,"bbox":[359,668,1030,31]}
+{"kind":"image","id":"im/f61wj65g","slide":4,"name":"","alt":"Original SAARTHI slide 4 background","bbox":[0,0,1440,810]}
+{"kind":"notes","id":"nt/k3xhlb","slide":4,"text":"Original visitor journey cards are retained as contextual problem framing. The project solution is a prototype."}
+{"kind":"slide","id":"sl/r6pdt0","slide":5,"title":"Show Nashik and Trimbakeshwar landmarks in an interactive 3D guide","textShapes":7}
+{"kind":"shape","id":"sh/pg76tgbe","slide":5,"bbox":[305,261,564,67]}
+{"kind":"textbox","id":"sh/ofypkbat","slide":5,"text":"Show Nashik and Trimbakeshwar landmarks in an interactive 3D guide","textPreview":"Show Nashik and Trimbakeshwar landmarks in an interactive 3D guide","textChars":66,"textLines":1,"bbox":[308,263,560,63]}
+{"kind":"shape","id":"sh/b29ovqtk","slide":5,"bbox":[305,402,564,67]}
+{"kind":"textbox","id":"sh/a1g7mlsz","slide":5,"text":"Connect each landmark to the related crowd, map or response portal","textPreview":"Connect each landmark to the related crowd, map or response portal","textChars":66,"textLines":1,"bbox":[308,404,560,63]}
+{"kind":"shape","id":"sh/x4r6x0rq","slide":5,"bbox":[305,542,564,67]}
+{"kind":"textbox","id":"sh/c3ipova5","slide":5,"text":"Surface crowd pressure and incident signals for human review","textPreview":"Surface crowd pressure and incident signals for human review","textChars":60,"textLines":1,"bbox":[308,544,560,63]}
+{"kind":"shape","id":"sh/r65ojmtg","slide":5,"bbox":[305,680,564,57]}
+{"kind":"textbox","id":"sh/qlwna1sv","slide":5,"text":"Explain demo data and unverified information clearly","textPreview":"Explain demo data and unverified information clearly","textChars":52,"textLines":1,"bbox":[308,682,560,53]}
+{"kind":"shape","id":"sh/onqpknyl","slide":5,"bbox":[978,261,429,67]}
+{"kind":"textbox","id":"sh/pozqtszq","slide":5,"text":"Bring many project features into one understandable website","textPreview":"Bring many project features into one understandable website","textChars":59,"textLines":1,"bbox":[981,263,425,63]}
+{"kind":"shape","id":"sh/2l87ixgf","slide":5,"bbox":[978,402,429,67]}
+{"kind":"textbox","id":"sh/3mh8rih0","slide":5,"text":"Support claim review before public communication","textPreview":"Support claim review before public communication","textChars":48,"textLines":1,"bbox":[981,404,425,63]}
+{"kind":"shape","id":"sh/crapo7yh","slide":5,"bbox":[978,542,429,67]}
+{"kind":"textbox","id":"sh/dsjqxcf2","slide":5,"text":"Prepare for GIS and live-feed integration after validation","textPreview":"Prepare for GIS and live-feed integration after validation","textChars":58,"textLines":1,"bbox":[981,544,425,63]}
+{"kind":"image","id":"im/b6pkr2dc","slide":5,"name":"","alt":"Original SAARTHI slide 5 background","bbox":[0,0,1440,810]}
+{"kind":"notes","id":"nt/r6pdt0","slide":5,"text":""}
+{"kind":"slide","id":"sl/fltpnp","slide":6,"title":"Literature Survey","textShapes":10}
+{"kind":"shape","id":"sh/twrat4f6","slide":6,"bbox":[846,0,594,142]}
+{"kind":"textbox","id":"sh/svi9kzel","slide":6,"text":"Literature Survey","textPreview":"Literature Survey","textChars":17,"textLines":1,"bbox":[848,35,530,62]}
+{"kind":"textbox","id":"sh/fy9svexc","slide":6,"text":"Research on Kumbh safety, crowd analysis and digital reporting informs this prototype.","textPreview":"Research on Kumbh safety, crowd analysis and digital reporting informs this prototype.","textChars":86,"textLines":1,"bbox":[849,86,565,45]}
+{"kind":"shape","id":"sh/ux0rm9wr","slide":6,"bbox":[996,145,443,40]}
+{"kind":"textbox","id":"sh/h0rax4f2","slide":6,"text":"Relevance to KumbhRakshak","textPreview":"Relevance to KumbhRakshak","textChars":25,"textLines":1,"bbox":[1003,153,420,28]}
+{"kind":"shape","id":"sh/gzi9ojeh","slide":6,"bbox":[997,186,441,82]}
+{"kind":"textbox","id":"sh/v2psjaxs","slide":6,"text":"Sets the real-world safety and coordination context","textPreview":"Sets the real-world safety and coordination context","textChars":51,"textLines":1,"bbox":[1006,194,419,69]}
+{"kind":"shape","id":"sh/a1wra5w7","slide":6,"bbox":[997,269,441,83]}
+{"kind":"textbox","id":"sh/szm98j6x","slide":6,"text":"Supports camera-based crowd observation as a future input","textPreview":"Supports camera-based crowd observation as a future input","textChars":57,"textLines":1,"bbox":[1006,277,419,70]}
+{"kind":"shape","id":"sh/t0vqhoni","slide":6,"bbox":[997,353,441,69]}
+{"kind":"textbox","id":"sh/6dk769or","slide":6,"text":"Shows density estimation can help zone-level review","textPreview":"Shows density estimation can help zone-level review","textChars":51,"textLines":1,"bbox":[1006,361,419,56]}
+{"kind":"shape","id":"sh/7yd8fe5c","slide":6,"bbox":[997,423,441,71]}
+{"kind":"textbox","id":"sh/g3m9c369","slide":6,"text":"Motivates forecasts, but field accuracy must be tested","textPreview":"Motivates forecasts, but field accuracy must be tested","textChars":54,"textLines":1,"bbox":[1006,431,419,58]}
+{"kind":"shape","id":"sh/h4vql8ne","slide":6,"bbox":[997,495,441,73]}
+{"kind":"textbox","id":"sh/u14rato3","slide":6,"text":"Explains risk around ghat pedestrian bottlenecks","textPreview":"Explains risk around ghat pedestrian bottlenecks","textChars":48,"textLines":1,"bbox":[1006,503,419,60]}
+{"kind":"shape","id":"sh/f2d8jy5o","slide":6,"bbox":[997,569,441,74]}
+{"kind":"textbox","id":"sh/w72pgz6p","slide":6,"text":"Supports accessibility-aware place guidance","textPreview":"Supports accessibility-aware place guidance","textChars":43,"textLines":1,"bbox":[1006,577,419,61]}
+{"kind":"shape","id":"sh/x8bq94na","slide":6,"bbox":[997,644,441,113]}
+{"kind":"textbox","id":"sh/dsjexwb2","slide":6,"text":"Motivates human review of public reports and claims","textPreview":"Motivates human review of public reports and claims","textChars":51,"textLines":1,"bbox":[1006,652,419,100]}
+{"kind":"image","id":"im/3i5c3a50","slide":6,"name":"","alt":"Original SAARTHI slide 6 background","bbox":[0,0,1440,810]}
+{"kind":"notes","id":"nt/fltpnp","slide":6,"text":""}
+{"kind":"slide","id":"sl/2ig794","slide":7,"title":"Kumbh studies show the scale of crowd coordination and safety planning.","textShapes":7}
+{"kind":"shape","id":"sh/fu58zu9k","slide":7,"bbox":[257,229,1162,65]}
+{"kind":"textbox","id":"sh/etwr6psz","slide":7,"text":"Kumbh studies show the scale of crowd coordination and safety planning.","textPreview":"Kumbh studies show the scale of crowd coordination and safety planning.","textChars":71,"textLines":1,"bbox":[259,230,1138,58]}
+{"kind":"shape","id":"sh/pk7q5orm","slide":7,"bbox":[257,312,1162,65]}
+{"kind":"textbox","id":"sh/ojy9cjq1","slide":7,"text":"Vision research supports crowd counting, but site-specific validation is essential.","textPreview":"Vision research supports crowd counting, but site-specific validation is essential.","textChars":83,"textLines":1,"bbox":[259,313,1138,58]}
+{"kind":"shape","id":"sh/nip83e9g","slide":7,"bbox":[257,393,1162,65]}
+{"kind":"textbox","id":"sh/2xgra9sb","slide":7,"text":"Forecasting can aid early review when reliable local data is available.","textPreview":"Forecasting can aid early review when reliable local data is available.","textChars":71,"textLines":1,"bbox":[259,394,1138,58]}
+{"kind":"shape","id":"sh/xo7a9ory","slide":7,"bbox":[257,475,1162,65]}
+{"kind":"textbox","id":"sh/cny9gjqd","slide":7,"text":"Accessible navigation research informs a future verified route layer.","textPreview":"Accessible navigation research informs a future verified route layer.","textChars":69,"textLines":1,"bbox":[259,476,1138,58]}
+{"kind":"shape","id":"sh/6h0b2t4b","slide":7,"bbox":[257,555,1162,65]}
+{"kind":"textbox","id":"sh/ri9svylw","slide":7,"text":"Fast-moving online claims require evidence and human approval before response.","textPreview":"Fast-moving online claims require evidence and human approval before response.","textChars":78,"textLines":1,"bbox":[259,556,1138,58]}
+{"kind":"shape","id":"sh/sjit43mh","slide":7,"bbox":[176,649,1243,103]}
+{"kind":"textbox","id":"sh/tkrax832","slide":7,"text":"Confirmed Research Gap","textPreview":"Confirmed Research Gap","textChars":22,"textLines":1,"bbox":[205,653,510,32]}
+{"kind":"textbox","id":"sh/elkb6d4n","slide":7,"text":"KumbhRakshak brings place context, monitoring views and response workflows together. Field validation remains necessary.","textPreview":"KumbhRakshak brings place context, monitoring views and response workflows together. Field validation remains necessary.","textChars":120,"textLines":1,"bbox":[205,688,1166,53]}
+{"kind":"image","id":"im/hc7q9ofm","slide":7,"name":"","alt":"Original SAARTHI slide 7 background","bbox":[0,0,1440,810]}
+{"kind":"notes","id":"nt/2ig794","slide":7,"text":""}
+{"kind":"slide","id":"sl/1qjcel","slide":8,"title":"Frontend: Next.js, React, Three.js","textShapes":12}
+{"kind":"shape","id":"sh/lormxwzi","slide":8,"bbox":[281,264,591,438]}
+{"kind":"shape","id":"sh/03il4rix","slide":8,"bbox":[979,260,449,441]}
+{"kind":"shape","id":"sh/byp4r2h0","slide":8,"bbox":[283,273,590,56]}
+{"kind":"textbox","id":"sh/qxg3yh0v","slide":8,"text":"Frontend: Next.js, React, Three.js","textPreview":"Frontend: Next.js, React, Three.js","textChars":34,"textLines":1,"bbox":[286,278,575,45]}
+{"kind":"shape","id":"sh/d07mtcz6","slide":8,"bbox":[283,351,590,56]}
+{"kind":"textbox","id":"sh/czyl07il","slide":8,"text":"Backend: FastAPI and WebSockets","textPreview":"Backend: FastAPI and WebSockets","textChars":31,"textLines":1,"bbox":[286,356,575,45]}
+{"kind":"shape","id":"sh/vut436hk","slide":8,"bbox":[283,432,590,56]}
+{"kind":"textbox","id":"sh/atkna10z","slide":8,"text":"Data: Firestore adapter, demo memory mode","textPreview":"Data: Firestore adapter, demo memory mode","textChars":41,"textLines":1,"bbox":[286,437,575,45]}
+{"kind":"shape","id":"sh/8nm58rm5","slide":8,"bbox":[283,506,590,56]}
+{"kind":"textbox","id":"sh/tovm1wnq","slide":8,"text":"AI: vision, claim and crowd modules","textPreview":"AI: vision, claim and crowd modules","textChars":35,"textLines":1,"bbox":[286,511,575,45]}
+{"kind":"shape","id":"sh/6l4n614z","slide":8,"bbox":[283,584,590,56]}
+{"kind":"textbox","id":"sh/7md4z65k","slide":8,"text":"Maps: Mapbox GL and OpenStreetMap","textPreview":"Maps: Mapbox GL and OpenStreetMap","textChars":33,"textLines":1,"bbox":[286,589,575,45]}
+{"kind":"shape","id":"sh/kjm54rmt","slide":8,"bbox":[283,649,590,56]}
+{"kind":"textbox","id":"sh/lkvmxwne","slide":8,"text":"Tools: Docker, Git, VS Code","textPreview":"Tools: Docker, Git, VS Code","textChars":27,"textLines":1,"bbox":[286,654,575,45]}
+{"kind":"shape","id":"sh/yxkn2h43","slide":8,"bbox":[980,268,435,65]}
+{"kind":"textbox","id":"sh/jit4vm5o","slide":8,"text":"Camera feeds: permissioned sources only","textPreview":"Camera feeds: permissioned sources only","textChars":39,"textLines":1,"bbox":[985,271,420,54]}
+{"kind":"shape","id":"sh/wv2507mx","slide":8,"bbox":[980,350,435,65]}
+{"kind":"textbox","id":"sh/xwbmtcni","slide":8,"text":"Operator laptop or server: 8-16 GB RAM","textPreview":"Operator laptop or server: 8-16 GB RAM","textChars":38,"textLines":1,"bbox":[985,353,420,54]}
+{"kind":"shape","id":"sh/dc32x8f6","slide":8,"bbox":[980,431,435,65]}
+{"kind":"textbox","id":"sh/cbulo3yl","slide":8,"text":"Phones: browsers for field access","textPreview":"Phones: browsers for field access","textChars":33,"textLines":1,"bbox":[985,434,420,54]}
+{"kind":"shape","id":"sh/rqlkvyxg","slide":8,"bbox":[980,510,435,65]}
+{"kind":"textbox","id":"sh/qpc32tgv","slide":8,"text":"Network: reliable and secured APIs","textPreview":"Network: reliable and secured APIs","textChars":34,"textLines":1,"bbox":[985,513,420,54]}
+{"kind":"shape","id":"sh/po32t8fa","slide":8,"bbox":[980,590,435,65]}
+{"kind":"textbox","id":"sh/4nul03yp","slide":8,"text":"GIS: official ghat and facility coordinates","textPreview":"GIS: official ghat and facility coordinates","textChars":43,"textLines":1,"bbox":[985,593,420,54]}
+{"kind":"shape","id":"sh/3m1kryx4","slide":8,"bbox":[195,704,1216,58]}
+{"kind":"textbox","id":"sh/2ls3ytgj","slide":8,"text":"A live deployment needs official data access, security review and field testing.","textPreview":"A live deployment needs official data access, security review and field testing.","textChars":80,"textLines":1,"bbox":[212,719,1165,35]}
+{"kind":"image","id":"im/ni5czitw","slide":8,"name":"","alt":"Original SAARTHI slide 8 background","bbox":[0,0,1440,810]}
+{"kind":"notes","id":"nt/1qjcel","slide":8,"text":""}
+{"kind":"slide","id":"sl/hjis3d","slide":9,"title":"Public Interface","textShapes":17}
+{"kind":"shape","id":"sh/utcf298n","slide":9,"bbox":[253,260,310,100]}
+{"kind":"textbox","id":"sh/vulwbep8","slide":9,"text":"Public Interface","textPreview":"Public Interface","textChars":16,"textLines":1,"bbox":[253,263,310,31]}
+{"kind":"textbox","id":"sh/4zex8jqp","slide":9,"text":"Place guide, advisories and reports","textPreview":"Place guide, advisories and reports","textChars":35,"textLines":1,"bbox":[260,309,296,44]}
+{"kind":"shape","id":"sh/5kneho7a","slide":9,"bbox":[693,260,278,100]}
+{"kind":"textbox","id":"sh/ixcf698z","slide":9,"text":"Field Interface","textPreview":"Field Interface","textChars":15,"textLines":1,"bbox":[693,263,278,31]}
+{"kind":"textbox","id":"sh/3ylwfepk","slide":9,"text":"Observations and incident support","textPreview":"Observations and incident support","textChars":33,"textLines":1,"bbox":[700,309,264,44]}
+{"kind":"shape","id":"sh/snexc3q1","slide":9,"bbox":[1100,260,270,100]}
+{"kind":"textbox","id":"sh/donelo7m","slide":9,"text":"Operator Dashboard","textPreview":"Operator Dashboard","textChars":18,"textLines":1,"bbox":[1100,263,270,31]}
+{"kind":"textbox","id":"sh/947ypgv6","slide":9,"text":"Crowd, cameras and human decisions","textPreview":"Crowd, cameras and human decisions","textChars":34,"textLines":1,"bbox":[1107,309,256,44]}
+{"kind":"shape","id":"sh/83yxwbel","slide":9,"bbox":[209,500,223,87]}
+{"kind":"textbox","id":"sh/n25gnqd0","slide":9,"text":"Place & Signal Inputs","textPreview":"Place & Signal Inputs","textChars":21,"textLines":1,"bbox":[214,504,213,30]}
+{"kind":"textbox","id":"sh/m1wfulwf","slide":9,"text":"Maps, feeds and reports","textPreview":"Maps, feeds and reports","textChars":23,"textLines":1,"bbox":[214,538,213,33]}
+{"kind":"shape","id":"sh/x87yt0v2","slide":9,"bbox":[449,500,223,87]}
+{"kind":"textbox","id":"sh/w7yh0veh","slide":9,"text":"Event Review","textPreview":"Event Review","textChars":12,"textLines":1,"bbox":[454,504,213,30]}
+{"kind":"textbox","id":"sh/v6pgrqdw","slide":9,"text":"Evidence and context","textPreview":"Evidence and context","textChars":20,"textLines":1,"bbox":[454,538,213,33]}
+{"kind":"shape","id":"sh/a5gfylwr","slide":9,"bbox":[689,500,223,87]}
+{"kind":"textbox","id":"sh/dcnyhwvy","slide":9,"text":"Risk Indicators","textPreview":"Risk Indicators","textChars":15,"textLines":1,"bbox":[694,504,213,30]}
+{"kind":"textbox","id":"sh/cbuxored","slide":9,"text":"Illustrative demo values","textPreview":"Illustrative demo values","textChars":24,"textLines":1,"bbox":[694,538,213,33]}
+{"kind":"shape","id":"sh/4fyx4bm9","slide":9,"bbox":[929,500,223,87]}
+{"kind":"textbox","id":"sh/5g7yxw3u","slide":9,"text":"Human Decision","textPreview":"Human Decision","textChars":14,"textLines":1,"bbox":[934,504,213,30]}
+{"kind":"textbox","id":"sh/itgf2143","slide":9,"text":"Operator approval","textPreview":"Operator approval","textChars":17,"textLines":1,"bbox":[934,538,213,33]}
+{"kind":"shape","id":"sh/3upgv6lo","slide":9,"bbox":[1168,500,224,87]}
+{"kind":"textbox","id":"sh/sjih8bm5","slide":9,"text":"Alerts & Guidance","textPreview":"Alerts & Guidance","textChars":17,"textLines":1,"bbox":[1173,504,214,30]}
+{"kind":"textbox","id":"sh/dkry1g3q","slide":9,"text":"Approved actions","textPreview":"Approved actions","textChars":16,"textLines":1,"bbox":[1173,538,214,33]}
+{"kind":"shape","id":"sh/qh0z614f","slide":9,"bbox":[280,665,1020,55]}
+{"kind":"textbox","id":"sh/ri9gz6lk","slide":9,"text":"The dashboard connects each signal to a named location before an operator decides what to do.","textPreview":"The dashboard connects each signal to a named location before an operator decides what to do.","textChars":93,"textLines":1,"bbox":[286,671,1000,43]}
+{"kind":"image","id":"im/kbitovi1","slide":9,"name":"","alt":"Original SAARTHI slide 9 background","bbox":[0,0,1440,810]}
+{"kind":"notes","id":"nt/hjis3d","slide":9,"text":""}
+{"kind":"slide","id":"sl/c2jpbu","slide":10,"title":"KumbhRakshak 3D Place Guide","textShapes":2}
+{"kind":"shape","id":"sh/3qxoji18","slide":10,"bbox":[364,145,825,522]}
+{"kind":"shape","id":"sh/hof6h8j2","slide":10,"bbox":[183,671,1224,120]}
+{"kind":"textbox","id":"sh/gn65832h","slide":10,"text":"KumbhRakshak 3D Place Guide","textPreview":"KumbhRakshak 3D Place Guide","textChars":27,"textLines":1,"bbox":[194,684,1177,32]}
+{"kind":"textbox","id":"sh/f2xofi1w","slide":10,"text":"Schematic Nashik scene: choose Ramkund or another visible landmark, then open its linked feature portal.","textPreview":"Schematic Nashik scene: choose Ramkund or another visible landmark, then open its linked feature portal.","textChars":104,"textLines":1,"bbox":[194,725,1177,55]}
+{"kind":"image","id":"im/lsjupk7y","slide":10,"name":"","alt":"Original SAARTHI slide 10 background","bbox":[0,0,1440,810]}
+{"kind":"image","id":"im/zqhcnaps","slide":10,"name":"","alt":"Nashik 3D place guide screenshot","bbox":[373,157,810,497]}
+{"kind":"notes","id":"nt/c2jpbu","slide":10,"text":"Real screenshot from the local project demo on 3 October 2026. The 3D scene is illustrative, not an official site plan."}
+{"kind":"slide","id":"sl/a7adap","slide":11,"title":"Prototype Modules","textShapes":17}
+{"kind":"shape","id":"sh/10vu5cb6","slide":11,"bbox":[170,195,510,36]}
+{"kind":"textbox","id":"sh/0zmtw7al","slide":11,"text":"Prototype Modules","textPreview":"Prototype Modules","textChars":17,"textLines":1,"bbox":[170,198,490,30]}
+{"kind":"shape","id":"sh/n2dc7mtc","slide":11,"bbox":[255,244,257,201]}
+{"kind":"shape","id":"sh/214byhsr","slide":11,"bbox":[596,244,258,201]}
+{"kind":"shape","id":"sh/p4fu9wb2","slide":11,"bbox":[259,254,248,70]}
+{"kind":"textbox","id":"sh/o36t0rah","slide":11,"text":"3D Place Guide","textPreview":"3D Place Guide","textChars":14,"textLines":1,"bbox":[259,254,248,29]}
+{"kind":"textbox","id":"sh/b6xcbmt8","slide":11,"text":"Illustrative Nashik and Trimbakeshwar scenes","textPreview":"Illustrative Nashik and Trimbakeshwar scenes","textChars":44,"textLines":1,"bbox":[259,287,248,37]}
+{"kind":"shape","id":"sh/a5ov21sn","slide":11,"bbox":[599,254,239,70]}
+{"kind":"textbox","id":"sh/47mlkbyt","slide":11,"text":"Crowd Portal","textPreview":"Crowd Portal","textChars":12,"textLines":1,"bbox":[599,254,239,29]}
+{"kind":"textbox","id":"sh/p8fmtgze","slide":11,"text":"Example 15, 30 and 60-minute forecasts","textPreview":"Example 15, 30 and 60-minute forecasts","textChars":38,"textLines":1,"bbox":[599,287,239,37]}
+{"kind":"shape","id":"sh/2l43i1g3","slide":11,"bbox":[259,368,248,70]}
+{"kind":"textbox","id":"sh/3md4r6h8","slide":11,"text":"Incident Portal","textPreview":"Incident Portal","textChars":15,"textLines":1,"bbox":[259,368,248,29]}
+{"kind":"textbox","id":"sh/cb6loby5","slide":11,"text":"Timeline and operator review","textPreview":"Timeline and operator review","textChars":28,"textLines":1,"bbox":[259,401,248,37]}
+{"kind":"shape","id":"sh/dcfmxgzq","slide":11,"bbox":[599,368,239,70]}
+{"kind":"textbox","id":"sh/q9o3mlgz","slide":11,"text":"Claim Review","textPreview":"Claim Review","textChars":12,"textLines":1,"bbox":[599,368,239,29]}
+{"kind":"textbox","id":"sh/rax4vqhk","slide":11,"text":"Evidence before public response","textPreview":"Evidence before public response","textChars":31,"textLines":1,"bbox":[599,401,239,37]}
+{"kind":"shape","id":"sh/0f6lsvy1","slide":11,"bbox":[864,257,544,124]}
+{"kind":"textbox","id":"sh/1gzm10fm","slide":11,"text":"Prototype Status","textPreview":"Prototype Status","textChars":16,"textLines":1,"bbox":[883,274,500,30]}
+{"kind":"textbox","id":"sh/9wvml07q","slide":11,"text":"Next.js front end  +  FastAPI back end\nIn-memory demo data and WebSocket events","textPreview":"Next.js front end  +  FastAPI back end | In-memory demo data and WebSocket events","textChars":79,"textLines":2,"bbox":[882,308,500,58]}
+{"kind":"shape","id":"sh/8vmlcvq5","slide":11,"bbox":[865,427,575,336]}
+{"kind":"textbox","id":"sh/nutkjqpk","slide":11,"text":"Current boundaries","textPreview":"Current boundaries","textChars":18,"textLines":1,"bbox":[870,432,520,35]}
+{"kind":"textbox","id":"sh/mtk3al8f","slide":11,"text":"• Real CCTV, crowd counts and GIS are not connected.","textPreview":"• Real CCTV, crowd counts and GIS are not connected.","textChars":52,"textLines":1,"bbox":[888,480,503,60]}
+{"kind":"textbox","id":"sh/x0vmp072","slide":11,"text":"• Scenario events and forecast values are simulated.","textPreview":"• Scenario events and forecast values are simulated.","textChars":52,"textLines":1,"bbox":[888,550,503,60]}
+{"kind":"textbox","id":"sh/wzmlgvqh","slide":11,"text":"• Emergency actions need an authorized human operator.","textPreview":"• Emergency actions need an authorized human operator.","textChars":54,"textLines":1,"bbox":[888,620,503,60]}
+{"kind":"shape","id":"sh/vyd4nqpw","slide":11,"bbox":[182,482,673,175]}
+{"kind":"textbox","id":"sh/ax43e58b","slide":11,"text":"Demo workflow","textPreview":"Demo workflow","textChars":13,"textLines":1,"bbox":[190,493,630,28]}
+{"kind":"textbox","id":"sh/d4b2dgri","slide":11,"text":"Select a place, open its portal, review the signal and record an operator decision.","textPreview":"Select a place, open its portal, review the signal and record an operator decision.","textChars":83,"textLines":1,"bbox":[204,537,620,88]}
+{"kind":"image","id":"im/fipsn2hg","slide":11,"name":"","alt":"Original SAARTHI slide 11 background","bbox":[0,0,1440,810]}
+{"kind":"notes","id":"nt/a7adap","slide":11,"text":""}
+{"kind":"slide","id":"sl/18d593","slide":12,"title":"Demonstrated Prototype Results","textShapes":13}
+{"kind":"shape","id":"sh/zixcji1s","slide":12,"bbox":[170,182,590,37]}
+{"kind":"textbox","id":"sh/ehovadk7","slide":12,"text":"Demonstrated Prototype Results","textPreview":"Demonstrated Prototype Results","textChars":30,"textLines":1,"bbox":[177,188,550,30]}
+{"kind":"shape","id":"sh/dgfuh8jm","slide":12,"bbox":[222,222,522,39]}
+{"kind":"textbox","id":"sh/cf6d8321","slide":12,"text":"3D place guide opens Nashik and Trimbakeshwar scenes","textPreview":"3D place guide opens Nashik and Trimbakeshwar scenes","textChars":52,"textLines":1,"bbox":[226,223,512,35]}
+{"kind":"shape","id":"sh/rexcfy1w","slide":12,"bbox":[222,267,522,39]}
+{"kind":"textbox","id":"sh/qtov6dkb","slide":12,"text":"Ramkund hotspot links to a crowd-related portal","textPreview":"Ramkund hotspot links to a crowd-related portal","textChars":47,"textLines":1,"bbox":[226,268,512,35]}
+{"kind":"shape","id":"sh/psvud8jq","slide":12,"bbox":[222,312,522,39]}
+{"kind":"textbox","id":"sh/4rmd4325","slide":12,"text":"Simulation starts, pauses and logs injected demo events","textPreview":"Simulation starts, pauses and logs injected demo events","textChars":55,"textLines":1,"bbox":[226,313,512,35]}
+{"kind":"shape","id":"sh/2tsrqdon","slide":12,"bbox":[222,357,522,39]}
+{"kind":"textbox","id":"sh/nu18zi58","slide":12,"text":"Crowd portal displays example forecast cards","textPreview":"Crowd portal displays example forecast cards","textChars":44,"textLines":1,"bbox":[226,358,512,35]}
+{"kind":"shape","id":"sh/ova9sn6t","slide":12,"bbox":[222,402,522,39]}
+{"kind":"textbox","id":"sh/pw3q1sne","slide":12,"text":"Overview groups available features by workflow","textPreview":"Overview groups available features by workflow","textChars":46,"textLines":1,"bbox":[226,403,512,35]}
+{"kind":"shape","id":"sh/eps7mdor","slide":12,"bbox":[222,447,522,39]}
+{"kind":"textbox","id":"sh/fq18vi5c","slide":12,"text":"Local back-end tests passed in demo mode","textPreview":"Local back-end tests passed in demo mode","textChars":40,"textLines":1,"bbox":[226,448,512,35]}
+{"kind":"shape","id":"sh/0rapon6x","slide":12,"bbox":[222,492,522,39]}
+{"kind":"textbox","id":"sh/1sjqxsni","slide":12,"text":"All operational figures are labeled as illustrative","textPreview":"All operational figures are labeled as illustrative","textChars":51,"textLines":1,"bbox":[226,493,512,35]}
+{"kind":"shape","id":"sh/q187itov","slide":12,"bbox":[222,537,522,39]}
+{"kind":"textbox","id":"sh/r2h8ry50","slide":12,"text":"Field accuracy and response impact remain untested","textPreview":"Field accuracy and response impact remain untested","textChars":50,"textLines":1,"bbox":[226,538,512,35]}
+{"kind":"shape","id":"sh/v6xozuls","slide":12,"bbox":[761,142,651,468]}
+{"kind":"textbox","id":"sh/h8f6143y","slide":12,"text":"Crowd portal: simulated values","textPreview":"Crowd portal: simulated values","textChars":30,"textLines":1,"bbox":[784,573,595,28]}
+{"kind":"shape","id":"sh/g765szmd","slide":12,"bbox":[170,623,566,153]}
+{"kind":"textbox","id":"sh/3uxo3el4","slide":12,"text":"Validation before field use","textPreview":"Validation before field use","textChars":27,"textLines":1,"bbox":[174,628,530,31]}
+{"kind":"textbox","id":"sh/itonu94j","slide":12,"text":"Connect verified GIS and live feeds, then test alerts, accuracy and response workflows with local authorities.","textPreview":"Connect verified GIS and live feeds, then test alerts, accuracy and response workflows with local authorities.","textChars":110,"textLines":1,"bbox":[178,675,533,79]}
+{"kind":"shape","id":"sh/5wf65o3a","slide":12,"bbox":[768,614,633,123]}
+{"kind":"textbox","id":"sh/4v65wjmp","slide":12,"text":"The screenshots demonstrate software behavior; they do not establish safety performance at a real event.","textPreview":"The screenshots demonstrate software behavior; they do not establish safety performance at a real event.","textChars":104,"textLines":1,"bbox":[788,637,585,77]}
+{"kind":"image","id":"im/dknm9kn6","slide":12,"name":"","alt":"Original SAARTHI slide 12 background","bbox":[0,0,1440,810]}
+{"kind":"image","id":"im/5wjulona","slide":12,"name":"","alt":"Crowd forecast portal screenshot","bbox":[769,178,637,395]}
+{"kind":"notes","id":"nt/18d593","slide":12,"text":"Screenshot from local project demo, 3 October 2026. Forecast values are simulated, not measured field data."}
+{"kind":"slide","id":"sl/7z6rqq","slide":13,"title":"Use approved 2027 GIS and ghat facility coordinates","textShapes":8}
+{"kind":"shape","id":"sh/sb6xgzut","slide":13,"bbox":[242,207,560,75]}
+{"kind":"textbox","id":"sh/tcfep4be","slide":13,"text":"Use approved 2027 GIS and ghat facility coordinates","textPreview":"Use approved 2027 GIS and ghat facility coordinates","textChars":51,"textLines":1,"bbox":[243,211,558,68]}
+{"kind":"shape","id":"sh/il4fapcr","slide":13,"bbox":[242,351,560,75]}
+{"kind":"textbox","id":"sh/jmxwjutc","slide":13,"text":"Integrate permissioned camera and incident feeds","textPreview":"Integrate permissioned camera and incident feeds","textChars":48,"textLines":1,"bbox":[243,355,558,68]}
+{"kind":"shape","id":"sh/kn6xcfuh","slide":13,"bbox":[242,490,560,75]}
+{"kind":"textbox","id":"sh/5ofelkb2","slide":13,"text":"Measure risk-model accuracy and false alerts locally","textPreview":"Measure risk-model accuracy and false alerts locally","textChars":52,"textLines":1,"bbox":[243,494,558,68]}
+{"kind":"shape","id":"sh/2h8fm9sv","slide":13,"bbox":[242,650,560,75]}
+{"kind":"textbox","id":"sh/3ihgfetg","slide":13,"text":"Connect emergency services through approved protocols","textPreview":"Connect emergency services through approved protocols","textChars":53,"textLines":1,"bbox":[243,654,558,68]}
+{"kind":"shape","id":"sh/v2xwfqdg","slide":13,"bbox":[898,207,515,75]}
+{"kind":"textbox","id":"sh/a1ofm5wv","slide":13,"text":"Add audited, multilingual public guidance","textPreview":"Add audited, multilingual public guidance","textChars":41,"textLines":1,"bbox":[899,211,513,68]}
+{"kind":"shape","id":"sh/x4fyh0v6","slide":13,"bbox":[898,351,515,75]}
+{"kind":"textbox","id":"sh/w36xove1","slide":13,"text":"Test low-connectivity use with volunteers","textPreview":"Test low-connectivity use with volunteers","textChars":41,"textLines":1,"bbox":[899,355,513,68]}
+{"kind":"shape","id":"sh/j6xgjadc","slide":13,"bbox":[898,490,515,75]}
+{"kind":"textbox","id":"sh/i5ofq5wr","slide":13,"text":"Run staged pilots before operational use","textPreview":"Run staged pilots before operational use","textChars":40,"textLines":1,"bbox":[899,494,513,68]}
+{"kind":"shape","id":"sh/58fylkvi","slide":13,"bbox":[898,625,515,100]}
+{"kind":"textbox","id":"sh/k76xcfex","slide":13,"text":"Study historical data for future planning","textPreview":"Study historical data for future planning","textChars":41,"textLines":1,"bbox":[899,629,513,93]}
+{"kind":"image","id":"im/m50f2xkb","slide":13,"name":"","alt":"Original SAARTHI slide 13 background","bbox":[0,0,1440,810]}
+{"kind":"notes","id":"nt/7z6rqq","slide":13,"text":""}
+{"kind":"slide","id":"sl/ws39ia","slide":14,"title":"[1]","textShapes":12}
+{"kind":"shape","id":"sh/lwjepkr6","slide":14,"bbox":[173,193,1261,605]}
+{"kind":"textbox","id":"sh/kvaxwfql","slide":14,"text":"[1]","textPreview":"[1]","textChars":3,"textLines":1,"bbox":[179,218,45,35]}
+{"kind":"textbox","id":"sh/b61wja94","slide":14,"text":"Kanaujiya, A.K. & Tiwari, V. (2022), Crowd Management and Strategies for Security and Surveillance During Large Mass Gathering Events: Prayagraj Kumbh Mela 2019 Experience. National Academy Science Letters.","textPreview":"Kanaujiya, A.K. & Tiwari, V. (2022), Crowd Management and Strategies for Security and Surveillance During Large Mass Gathering Events: Pr...","textChars":206,"textLines":1,"bbox":[227,206,1180,70]}
+{"kind":"textbox","id":"sh/a58fq58j","slide":14,"text":"[2]","textPreview":"[2]","textChars":3,"textLines":1,"bbox":[179,304,45,35]}
+{"kind":"textbox","id":"sh/xsjelkru","slide":14,"text":"Nashik District Administration, Ramkund Nashik, official landmark information.","textPreview":"Nashik District Administration, Ramkund Nashik, official landmark information.","textChars":78,"textLines":1,"bbox":[227,292,1180,70]}
+{"kind":"textbox","id":"sh/c7axsfqp","slide":14,"text":"[3]","textPreview":"[3]","textChars":3,"textLines":1,"bbox":[179,390,45,35]}
+{"kind":"textbox","id":"sh/v2lgvu98","slide":14,"text":"Nashik District Administration, Kushavart Tirtha, Trimbakeshwar, official landmark information.","textPreview":"Nashik District Administration, Kushavart Tirtha, Trimbakeshwar, official landmark information.","textChars":95,"textLines":1,"bbox":[227,378,1180,70]}
+{"kind":"textbox","id":"sh/u1cf298n","slide":14,"text":"[4]","textPreview":"[4]","textChars":3,"textLines":1,"bbox":[179,476,45,35]}
+{"kind":"textbox","id":"sh/w7u18fm1","slide":14,"text":"Tiwari, S. & Chowdhary, R. (2022), Technology and crowd management: Kumbh case study.","textPreview":"Tiwari, S. & Chowdhary, R. (2022), Technology and crowd management: Kumbh case study.","textChars":85,"textLines":1,"bbox":[227,464,1180,70]}
+{"kind":"textbox","id":"sh/h8321k3m","slide":14,"text":"[5]","textPreview":"[5]","textChars":3,"textLines":1,"bbox":[179,562,45,35]}
+{"kind":"textbox","id":"sh/u5cj654v","slide":14,"text":"KumbhRakshak project repository: github.com/hardiksedani/mahakumbh_projects","textPreview":"KumbhRakshak project repository: github.com/hardiksedani/mahakumbh_projects","textChars":75,"textLines":1,"bbox":[227,550,1180,70]}
+{"kind":"textbox","id":"sh/v6lkzalg","slide":14,"text":"[6]","textPreview":"[6]","textChars":3,"textLines":1,"bbox":[179,648,45,35]}
+{"kind":"textbox","id":"sh/83u14vmp","slide":14,"text":"KumbhRakshak local website prototype, screenshots captured 3 October 2026.","textPreview":"KumbhRakshak local website prototype, screenshots captured 3 October 2026.","textChars":74,"textLines":1,"bbox":[227,636,1180,70]}
+{"kind":"image","id":"im/nepgv210","slide":14,"name":"","alt":"Original SAARTHI slide 14 background","bbox":[0,0,1440,810]}
+{"kind":"notes","id":"nt/ws39ia","slide":14,"text":"Project repository: https://github.com/hardiksedani/mahakumbh_projects\nOfficial landmark sources: https://nashik.gov.in/en/tourist-place/ramkund-nashik/ and https://nashik.gov.in/en/tourist-place/kushavart-tirtha-trimbakeshwar/"}
+{"kind":"slide","id":"sl/0klt5t","slide":15,"title":"Two Linked 3D Scenes","textShapes":2}
+{"kind":"shape","id":"sh/50nmxwbi","slide":15,"bbox":[365,145,825,522]}
+{"kind":"shape","id":"sh/q1wnq1s3","slide":15,"bbox":[183,671,1224,120]}
+{"kind":"textbox","id":"sh/d4n61wbu","slide":15,"text":"Two Linked 3D Scenes","textPreview":"Two Linked 3D Scenes","textChars":20,"textLines":1,"bbox":[194,684,1177,32]}
+{"kind":"textbox","id":"sh/s3e5sra9","slide":15,"text":"Nashik and Trimbakeshwar each have schematic landmarks and direct links to the relevant feature portals.","textPreview":"Nashik and Trimbakeshwar each have schematic landmarks and direct links to the relevant feature portals.","textChars":104,"textLines":1,"bbox":[194,725,1177,55]}
+{"kind":"image","id":"im/fmhk7m5o","slide":15,"name":"","alt":"Original SAARTHI slide 10 background","bbox":[0,0,1440,810]}
+{"kind":"image","id":"im/hoz29wnu","slide":15,"name":"","alt":"Nashik 3D guide","bbox":[180,197,595,390]}
+{"kind":"image","id":"im/6ho3uho7","slide":15,"name":"","alt":"Trimbakeshwar 3D guide","bbox":[785,197,595,390]}
+{"kind":"notes","id":"nt/0klt5t","slide":15,"text":"Two screenshots from the local project demo. Scenes and pin locations are illustrative and require official GIS approval."}
+{"kind":"slide","id":"sl/da4leg","slide":16,"title":"Slide 16","textShapes":0}
+{"kind":"image","id":"im/a9kzi94f","slide":16,"name":"","alt":"Original SAARTHI slide 16 background","bbox":[0,0,1440,810]}
+{"kind":"notes","id":"nt/da4leg","slide":16,"text":"Thank you."}

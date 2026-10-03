@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 import { Header, SeverityBadge, RiskBadge } from "@/components/ui";
+import { backendRequest } from "@/lib/api";
 import {
   ShieldAlert,
   Compass,
@@ -38,25 +40,30 @@ export default function IncidentDetail() {
   const [inc, setInc] = useState<any | null>(null);
   const [graphData, setGraphData] = useState<{ nodes: GraphNode[]; edges: GraphEdge[] } | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [officerBadge, setOfficerBadge] = useState("MH-NSK-POL-4412");
   const [officerName, setOfficerName] = useState("DySP R. K. Shinde");
   const [decisionRecorded, setDecisionRecorded] = useState<string | null>(null);
 
   const fetchIncidentAndGraph = async () => {
-    if (!params.id) return;
+    if (!params.id) {
+      setError("No incident was selected.");
+      setLoading(false);
+      return;
+    }
     try {
       setLoading(true);
-      const incRes = await fetch(`http://localhost:8000/api/incidents/${params.id}`);
-      const incData = await incRes.json();
+      setError(null);
+      const incidentId = encodeURIComponent(String(params.id));
+      const incData = await backendRequest<any>(`/api/incidents/${incidentId}`);
       setInc(incData);
 
-      const graphRes = await fetch(`http://localhost:8000/api/v1/incidents/${params.id}/graph`);
-      const gData = await graphRes.json();
+      const gData = await backendRequest<{ graph?: { nodes: GraphNode[]; edges: GraphEdge[] } }>(`/api/v1/incidents/${incidentId}/graph`);
       if (gData.graph) {
         setGraphData(gData.graph);
       }
-    } catch (err) {
-      console.error("Failed to load incident detail:", err);
+    } catch {
+      setError("Incident details are unavailable because the demo backend is offline. No decision can be recorded.");
     } finally {
       setLoading(false);
     }
@@ -68,7 +75,7 @@ export default function IncidentDetail() {
 
   const handleConfirmAction = async (decision: "APPROVED" | "REJECTED") => {
     try {
-      const res = await fetch("http://localhost:8000/api/v1/dispatch/confirm", {
+      await backendRequest("/api/v1/dispatch/confirm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -81,12 +88,10 @@ export default function IncidentDetail() {
           notes: `Action ${decision} on Incident ${inc?.incident_code}.`,
         }),
       });
-      if (res.ok) {
-        setDecisionRecorded(decision);
-        fetchIncidentAndGraph();
-      }
-    } catch (err) {
-      console.error("Failed to submit decision:", err);
+      setDecisionRecorded(decision);
+      fetchIncidentAndGraph();
+    } catch {
+      setError("The decision could not be recorded. Check the demo backend before retrying.");
     }
   };
 
@@ -94,8 +99,14 @@ export default function IncidentDetail() {
     return (
       <div className="min-h-screen bg-[#070A11] text-slate-100 flex flex-col">
         <Header />
-        <div className="flex-1 flex items-center justify-center p-8 font-mono text-sm text-slate-400">
-          Loading Incident Telemetry & Evidence Lineage Graph...
+        <div className="flex-1 flex flex-col items-center justify-center gap-4 p-8 text-center text-sm text-slate-400">
+          {loading ? "Loading incident telemetry and evidence…" : <p role="alert">{error || "Incident not found."}</p>}
+          {!loading && (
+            <div className="flex gap-3">
+              <button onClick={fetchIncidentAndGraph} className="rounded-lg border border-slate-600 px-4 py-2 text-slate-100">Retry</button>
+              <Link href="/incidents" className="rounded-lg bg-orange-600 px-4 py-2 text-white">Back to incidents</Link>
+            </div>
+          )}
         </div>
       </div>
     );
@@ -106,6 +117,7 @@ export default function IncidentDetail() {
       <Header />
 
       <main className="flex-1 max-w-[1600px] w-full mx-auto p-4 md:p-6 space-y-6">
+        {error && <p role="alert" className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200">{error}</p>}
         {/* Incident Title Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
           <div>

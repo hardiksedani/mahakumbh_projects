@@ -3,222 +3,148 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { clsx } from "clsx";
+import type { LucideIcon } from "lucide-react";
 import {
-  ShieldAlert,
-  Flame,
-  Radio,
-  Video,
-  Compass,
-  Cpu,
-  Home,
-  Users,
-  Award,
-  Send,
-  GitBranch,
-  BarChart3,
-  FileCheck,
-  CheckCircle2,
-  TrendingUp,
-  Box,
+  Activity, Award, BarChart3, Box, ChevronDown, Compass, Cpu, FileCheck,
+  Home, MapPin, Radio, Send, ShieldAlert, TrendingUp, Users, Video,
 } from "lucide-react";
 
-// All 14 core operational portals permanently visible on all screens
-export const NAV_SECTIONS = [
-  { href: "/", label: "Dashboard", icon: BarChart3 },
-  { href: "/simulation", label: "3D Simulation (Three.js)", icon: Box, highlight: true },
-  { href: "/incidents", label: "Incidents", icon: ShieldAlert },
-  { href: "/cameras", label: "CCTV Vision", icon: Video },
-  { href: "/map", label: "GIS Radar", icon: Compass },
-  { href: "/verify", label: "Rumor Scanner (10.1)", icon: ShieldAlert },
-  { href: "/sentiment", label: "Sentiment Pulse (10.2)", icon: Users },
-  { href: "/broadcast", label: "Broadcast Studio (10.3)", icon: Send },
-  { href: "/crowd", label: "Crowd Forecast", icon: TrendingUp },
-  { href: "/shelters", label: "Shelters", icon: Home },
-  { href: "/resources", label: "Resource Dispatch", icon: FileCheck },
-  { href: "/social", label: "Social Feed", icon: Radio },
-  { href: "/models", label: "AI Models (12)", icon: Cpu },
-  { href: "/executive", label: "Executive Brief", icon: Award },
+type NavItem = { href: string; label: string; description: string; icon: LucideIcon };
+type NavGroup = { title: string; description: string; items: NavItem[] };
+
+export const NAV_GROUPS: NavGroup[] = [
+  {
+    title: "Explore",
+    description: "Understand the places and facilities",
+    items: [
+      { href: "/", label: "Overview", description: "Start here and see how the platform works", icon: BarChart3 },
+      { href: "/simulation", label: "3D place guide", description: "Explore Nashik and Trimbakeshwar", icon: Box },
+      { href: "/map", label: "Area map", description: "View locations and spatial context", icon: Compass },
+      { href: "/shelters", label: "Shelters", description: "Inspect holding and rest facilities", icon: Home },
+    ],
+  },
+  {
+    title: "Monitor",
+    description: "Review signals before taking action",
+    items: [
+      { href: "/cameras", label: "Camera vision", description: "Inspect video-based observations", icon: Video },
+      { href: "/crowd", label: "Crowd forecast", description: "Review crowd-pressure projections", icon: TrendingUp },
+      { href: "/social", label: "Public reports", description: "See incoming public signals", icon: Radio },
+      { href: "/verify", label: "Claim verification", description: "Check evidence behind a claim", icon: FileCheck },
+      { href: "/sentiment", label: "Sentiment pulse", description: "Understand public concerns", icon: Users },
+    ],
+  },
+  {
+    title: "Respond",
+    description: "Coordinate and communicate",
+    items: [
+      { href: "/incidents", label: "Incidents", description: "Triage and track an event", icon: ShieldAlert },
+      { href: "/resources", label: "Resources", description: "Review response teams and assignments", icon: Activity },
+      { href: "/broadcast", label: "Broadcast studio", description: "Draft multilingual advisories", icon: Send },
+    ],
+  },
+  {
+    title: "Understand",
+    description: "See the technology and summary",
+    items: [
+      { href: "/models", label: "AI models", description: "Review model roles and status", icon: Cpu },
+      { href: "/executive", label: "Executive brief", description: "See the project-wide summary", icon: Award },
+    ],
+  },
 ];
 
+export const NAV_SECTIONS = NAV_GROUPS.flatMap((group) => group.items);
+
 export function Header({ snanMode }: { snanMode?: boolean }) {
-  const path = usePathname();
+  const pathname = usePathname();
+  const current = NAV_SECTIONS.find((item) => item.href === pathname)
+    ?? (pathname.startsWith("/incidents/") ? NAV_SECTIONS.find((item) => item.href === "/incidents") : undefined);
+  const primary = NAV_SECTIONS.filter((item) => ["/", "/simulation", "/incidents", "/map"].includes(item.href));
 
   return (
-    <header className="border-b border-slate-800/80 bg-[#070A12]/98 backdrop-blur-xl sticky top-0 z-50 shadow-xl">
-      {/* Top Protocol & Provenance Bar */}
-      <div className="bg-slate-950/90 border-b border-slate-800/60 px-4 py-1.5 text-[11px] font-mono flex items-center justify-between text-slate-400">
-        <div className="flex items-center gap-3">
-          <span className="bg-amber-500/15 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
-            DEMO / SIMULATED DATA
+    <header className="site-header sticky top-0 z-50 border-b backdrop-blur">
+      <div className="mx-auto flex max-w-[1750px] flex-wrap items-center justify-between gap-3 px-4 py-3 md:px-6">
+        <Link href="/" className="flex min-w-0 items-center gap-3 rounded-lg focus-visible:outline-offset-4" aria-label="KumbhRakshak overview">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#e5aa67] text-lg font-bold text-[#173b40]">K</span>
+          <span className="min-w-0">
+            <span className="block text-[11px] font-semibold uppercase tracking-[.14em] text-[#f7c782]"><span className="sm:hidden">Simhastha 2027</span><span className="hidden sm:inline">Simhastha 2027 · Nashik–Trimbakeshwar</span></span>
+            <span className="block text-lg font-extrabold tracking-tight text-[#f5f8f5]">KumbhRakshak</span>
           </span>
-          <span className="hidden sm:inline text-slate-600">|</span>
-          <span className="hidden sm:inline text-slate-300 font-medium">
-            Simhastha Kumbh Mela 2027 — Nashik–Trimbakeshwar AI Command Platform
-          </span>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <span className="hidden md:flex items-center gap-1.5 text-emerald-400 font-semibold">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            12 AI ENGINES ONLINE
-          </span>
-          <span className="text-slate-600 hidden sm:inline">|</span>
-          <span className="text-slate-300 flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> C4I WS: LIVE
-          </span>
-        </div>
-      </div>
-
-      {/* Main Branding Bar */}
-      <div className="max-w-[1850px] mx-auto px-4 py-2.5 flex items-center justify-between gap-4">
-        {/* Brand */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500 via-amber-600 to-red-600 flex items-center justify-center font-black text-lg text-white shadow-lg shadow-orange-500/20 border border-orange-400/40 group-hover:scale-105 transition-transform">
-            K
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h1 className="font-extrabold text-base tracking-tight text-white group-hover:text-orange-400 transition-colors">
-                KUMBHRAKSHAK
-              </h1>
-              <span className="bg-orange-500/15 text-orange-400 border border-orange-500/30 text-[10px] font-mono px-2 py-0.5 rounded-md font-bold">
-                AI C4I COMMAND
-              </span>
-            </div>
-            <p className="text-[10px] text-slate-400 font-mono">
-              Simhastha Kumbh 2027 — Nashik–Trimbakeshwar Joint Safety Platform
-            </p>
-          </div>
         </Link>
 
-        {snanMode && (
-          <span className="badge-red animate-bounce text-[10px] font-bold flex items-center gap-1.5 px-3 py-1 shadow-lg shadow-red-500/20">
-            <Flame className="w-3.5 h-3.5 text-red-400" /> MAJOR SHAHI SNAN ALERT ACTIVE
-          </span>
-        )}
-
-        <div className="text-right hidden lg:block font-mono text-[11px]">
-          <div className="text-slate-300 font-bold">ALL 14 PORTALS LIVE</div>
-          <div className="text-slate-500 text-[10px]">Zero Menus • Direct 1-Click Access</div>
-        </div>
-      </div>
-
-      {/* PERMANENT ACTIVE PORTALS NAVIGATION BAR (Always visible on all screens, no 3-lines menu!) */}
-      <div className="w-full bg-[#050810] border-t border-slate-800/80 px-4 py-1.5">
-        <div className="max-w-[1850px] mx-auto flex items-center gap-1.5 overflow-x-auto scrollbar-thin pb-0.5">
-          <span className="text-[10px] font-mono text-orange-400 font-bold uppercase tracking-wider px-2 py-1 bg-slate-900 border border-slate-800 rounded-lg shrink-0 flex items-center gap-1">
-            <span>PORTALS:</span>
-          </span>
-
-          {NAV_SECTIONS.map((n: any) => {
-            const Icon = n.icon;
-            const isActive = path === n.href;
-            const isHighlight = n.highlight && !isActive;
+        <nav aria-label="Main navigation" className="site-nav order-3 flex w-full items-center gap-1 overflow-x-auto border-t pt-2 md:order-2 md:w-auto md:border-0 md:pt-0">
+          {primary.map((item) => {
+            const Icon = item.icon;
+            const active = item.href === "/" ? pathname === "/" : pathname === item.href || pathname.startsWith(`${item.href}/`);
             return (
-              <Link
-                key={n.href}
-                href={n.href}
-                className={clsx(
-                  "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap shrink-0",
-                  isActive
-                    ? "bg-orange-500/20 text-orange-400 border border-orange-500/50 shadow-md shadow-orange-500/10 font-bold"
-                    : isHighlight
-                    ? "bg-gradient-to-r from-orange-500/15 to-amber-500/15 border border-orange-500/40 text-amber-300 hover:text-white hover:border-orange-400 shadow-sm"
-                    : "bg-slate-900/60 border border-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-800 hover:border-slate-700"
-                )}
+              <Link key={item.href} href={item.href} aria-current={active ? "page" : undefined}
+                className={clsx("inline-flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition-colors", active ? "bg-[#dceee8] text-[#103f44]" : "text-[#d8e8e1] hover:bg-[#27565b] hover:text-white")}
               >
-                <Icon className={clsx("w-3.5 h-3.5", isActive ? "text-orange-400" : isHighlight ? "text-amber-400" : "text-slate-400")} />
-                <span>{n.label}</span>
-                {isHighlight && (
-                  <span className="text-[9px] font-mono bg-orange-500/30 text-orange-300 px-1 py-0.2 rounded font-bold">
-                    3D
-                  </span>
-                )}
+                <Icon className="h-4 w-4" />{item.label}
               </Link>
             );
           })}
+        </nav>
+
+        <div className="order-2 flex items-center gap-2 md:order-3">
+          {snanMode && <span className="hidden rounded-full border border-[#f0b9a8] bg-[#612e29] px-3 py-1.5 text-xs font-bold text-[#fff1e9] lg:inline-flex">Bathing-day demo</span>}
+          <span className="hidden rounded-full border border-[#bd8d61] bg-[#4b3e32] px-3 py-1.5 text-xs font-bold text-[#ffe1ba] lg:inline-flex">Demo data</span>
+          <details className="group relative">
+            <summary className="flex cursor-pointer list-none items-center gap-2 rounded-lg border border-[#89b1a9] bg-[#edf6f1] px-3 py-2 text-sm font-bold text-[#103f44] hover:bg-white [&::-webkit-details-marker]:hidden">
+              All features <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" />
+            </summary>
+            <div className="absolute right-0 top-[calc(100%+12px)] z-50 w-[min(94vw,820px)] max-h-[75vh] overflow-y-auto rounded-2xl border border-[#d5e4de] bg-white p-4 shadow-xl">
+              <div className="mb-4 flex items-center gap-2 border-b border-[#e3ece8] pb-3 text-sm text-[#526874]"><MapPin className="h-4 w-4 text-[#176b70]" />Choose a task to find the right feature</div>
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                {NAV_GROUPS.map((group) => (
+                  <div key={group.title}>
+                    <h2 className="text-sm font-extrabold text-[#19323d]">{group.title}</h2>
+                    <p className="mb-2 text-xs text-[#617783]">{group.description}</p>
+                    <div className="space-y-1">
+                      {group.items.map((item) => {
+                        const Icon = item.icon;
+                        return <Link key={item.href} href={item.href} className={clsx("flex gap-2 rounded-lg p-2 hover:bg-[#eff6f3]", current?.href === item.href && "bg-[#e5f2ef]")}>
+                          <Icon className="mt-0.5 h-4 w-4 shrink-0 text-[#176b70]" />
+                          <span><span className="block text-sm font-semibold text-[#19323d]">{item.label}</span><span className="block text-xs leading-snug text-[#617783]">{item.description}</span></span>
+                        </Link>;
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </details>
         </div>
       </div>
     </header>
   );
 }
 
-export function KPICard({
-  label,
-  value,
-  color = "text-white",
-  subtitle,
-  icon: Icon,
-}: {
-  label: string;
-  value: number | string;
-  color?: string;
-  subtitle?: string;
-  icon?: any;
+export function KPICard({ label, value, color = "text-[#19323d]", subtitle, icon: Icon }: {
+  label: string; value: number | string; color?: string; subtitle?: string; icon?: React.ComponentType<{ className?: string }>;
 }) {
-  return (
-    <div className="p-4 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800/80 hover:border-slate-700 transition-all flex flex-col justify-between shadow-lg">
-      <div className="flex items-center justify-between">
-        <span className="text-xs text-slate-400 font-medium tracking-wide">{label}</span>
-        {Icon && <Icon className="w-4 h-4 text-slate-500" />}
-      </div>
-      <div className="my-1.5">
-        <div className={clsx("text-2xl lg:text-3xl font-black tracking-tight font-mono", color)}>{value}</div>
-      </div>
-      {subtitle && <div className="text-[11px] text-slate-400 font-mono truncate">{subtitle}</div>}
-    </div>
-  );
+  return <div className="flex min-h-[130px] flex-col justify-between rounded-2xl border border-[#d8e5e0] bg-white p-4">
+    <div className="flex items-start justify-between gap-2"><span className="text-sm font-medium text-[#526874]">{label}</span>{Icon && <Icon className="h-5 w-5 text-[#176b70]" />}</div>
+    <div className={clsx("mt-3 text-2xl font-extrabold tracking-tight", color)}>{value}</div>
+    {subtitle && <div className="mt-1 text-xs text-[#617783]">{subtitle}</div>}
+  </div>;
 }
 
 export function SeverityBadge({ severity }: { severity: string }) {
-  const map: Record<string, string> = {
-    CRITICAL: "bg-red-500/20 text-red-400 border-red-500/40",
-    HIGH: "bg-orange-500/20 text-orange-400 border-orange-500/40",
-    WARNING: "bg-amber-500/20 text-amber-400 border-amber-500/40",
-    INFO: "bg-blue-500/20 text-blue-400 border-blue-500/40",
-    OPEN: "bg-orange-500/20 text-orange-400 border-orange-500/40",
-    IN_PROGRESS: "bg-blue-500/20 text-blue-400 border-blue-500/40",
-    RESOLVED: "bg-emerald-500/20 text-emerald-400 border-emerald-500/40",
-    VERIFIED: "bg-emerald-500/20 text-emerald-400 border-emerald-500/40",
-    LIKELY: "bg-amber-500/20 text-amber-400 border-amber-500/40",
-    UNVERIFIED: "bg-orange-500/20 text-orange-400 border-orange-500/40",
-    CONTRADICTED: "bg-red-500/20 text-red-400 border-red-500/40",
-    UNDER_INVESTIGATION: "bg-yellow-500/20 text-yellow-400 border-yellow-500/40",
-    POSSIBLE_REUSED_CONTENT: "bg-amber-500/20 text-amber-400 border-amber-500/40",
+  const styles: Record<string, string> = {
+    CRITICAL: "border-[#edc2be] bg-[#fff0ef] text-[#a73c36]", HIGH: "border-[#eac9ae] bg-[#fff0e4] text-[#955025]",
+    WARNING: "border-[#ecd7a6] bg-[#fff7e7] text-[#895b18]", INFO: "border-[#bcd6e5] bg-[#eaf4f9] text-[#315e85]",
+    OPEN: "border-[#eac9ae] bg-[#fff0e4] text-[#955025]", IN_PROGRESS: "border-[#bcd6e5] bg-[#eaf4f9] text-[#315e85]",
+    RESOLVED: "border-[#b6dfca] bg-[#e9f7f0] text-[#176b4c]", VERIFIED: "border-[#b6dfca] bg-[#e9f7f0] text-[#176b4c]",
+    LIKELY: "border-[#ecd7a6] bg-[#fff7e7] text-[#895b18]", UNVERIFIED: "border-[#eac9ae] bg-[#fff0e4] text-[#955025]",
+    CONTRADICTED: "border-[#edc2be] bg-[#fff0ef] text-[#a73c36]", UNDER_INVESTIGATION: "border-[#ecd7a6] bg-[#fff7e7] text-[#895b18]",
+    POSSIBLE_REUSED_CONTENT: "border-[#ecd7a6] bg-[#fff7e7] text-[#895b18]",
   };
-  const cls = map[severity] || "bg-slate-800 text-slate-300 border-slate-700";
-  return (
-    <span className={clsx("px-2 py-0.5 rounded-md text-[10px] font-mono font-bold border tracking-wider", cls)}>
-      {severity}
-    </span>
-  );
+  return <span className={clsx("inline-flex rounded-full border px-2.5 py-1 text-xs font-bold", styles[severity] ?? "border-[#d8e5e0] bg-[#f3f7f5] text-[#526874]")}>{severity.replaceAll("_", " ")}</span>;
 }
 
 export function RiskBadge({ score }: { score: number }) {
-  if (score >= 75) {
-    return (
-      <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-red-500/20 text-red-400 border border-red-500/40">
-        RISK: RED ({score.toFixed(0)})
-      </span>
-    );
-  }
-  if (score >= 50) {
-    return (
-      <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-orange-500/20 text-orange-400 border border-orange-500/40">
-        RISK: ORANGE ({score.toFixed(0)})
-      </span>
-    );
-  }
-  if (score >= 25) {
-    return (
-      <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400 border border-amber-500/40">
-        RISK: YELLOW ({score.toFixed(0)})
-      </span>
-    );
-  }
-  return (
-    <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
-      RISK: GREEN ({score.toFixed(0)})
-    </span>
-  );
+  const style = score >= 75 ? "border-[#edc2be] bg-[#fff0ef] text-[#a73c36]" : score >= 50 ? "border-[#eac9ae] bg-[#fff0e4] text-[#955025]" : score >= 25 ? "border-[#ecd7a6] bg-[#fff7e7] text-[#895b18]" : "border-[#b6dfca] bg-[#e9f7f0] text-[#176b4c]";
+  const level = score >= 75 ? "High" : score >= 50 ? "Elevated" : score >= 25 ? "Moderate" : "Low";
+  return <span className={clsx("inline-flex rounded-full border px-2.5 py-1 text-xs font-bold", style)}>{level} risk · {score.toFixed(0)}</span>;
 }

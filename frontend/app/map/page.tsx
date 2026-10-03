@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Header } from "@/components/ui";
 import { MapView } from "@/components/MapView";
+import { api } from "@/lib/api";
 import { Compass, Eye, ShieldAlert, Home, Layers, Video, RefreshCw } from "lucide-react";
 
 export default function GISMapPage() {
@@ -14,8 +15,8 @@ export default function GISMapPage() {
 
   useEffect(() => {
     Promise.all([
-      fetch("http://localhost:8000/api/cameras").then((r) => r.json()),
-      fetch("http://localhost:8000/api/incidents").then((r) => r.json()),
+      api<any[]>("/api/cameras"),
+      api<any[]>("/api/incidents"),
     ])
       .then(([cams, incs]) => {
         if (Array.isArray(cams)) setCameras(cams);

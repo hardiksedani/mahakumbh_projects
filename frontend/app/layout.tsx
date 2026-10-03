@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { SimulationContextBanner } from "@/components/SimulationContextBanner";
 
 export const metadata: Metadata = {
   title: "KumbhRakshak — AI Kumbh Safety Command Centre",
@@ -8,13 +9,13 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FF9933",
+  themeColor: "#176B70",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body><SimulationContextBanner />{children}</body>
     </html>
   );
 }

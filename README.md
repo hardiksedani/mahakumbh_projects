@@ -93,11 +93,13 @@ FIREBASE_SERVICE_ACCOUNT_PATH=./firebase-service-account.json
 
 ## Demo Flow
 
-1. Open Dashboard — view KPIs, map, incidents
-2. Go to **Simulation** → click **Start Major Snan**
-3. Watch timeline: crowd rise → social reports → fire event → verification
-4. Use **Verify Reel** to test claim verification
-5. Use inject buttons for fire, crowd, misinformation scenarios
+1. Open **Simulation** and choose the Nashik or Trimbakeshwar place view.
+2. Select Ramkund, Panchavati, Trimbakeshwar temple, or Kushavart Tirtha to see its related portal.
+3. Follow the portal link; the selected place appears in the destination banner, with a link back to the 3D guide.
+4. With the backend running, start the separate demo timeline or inject an event.
+5. Use **Verify Reel** to test claim verification.
+
+The 3D guide is an explanatory model, not a surveyed map or an official 2027 site plan. It distinguishes known landmarks from illustrative camera, helpdesk, response, and operations markers. Browsers without WebGL receive an interactive 2D fallback. Landmark descriptions are based on the [Nashik district Ramkund page](https://nashik.gov.in/en/tourist-place/ramkund-nashik/), [Kushavart Tirtha page](https://nashik.gov.in/en/tourist-place/kushavart-tirtha-trimbakeshwar/), and [Trimbakeshwar places of interest](https://nashik.gov.in/en/tourism/places-of-interest/). Replace schematic facility pins only after obtaining an official, current GIS or site plan.
 
 See [docs/demo-script.md](docs/demo-script.md) for full narrative.
 

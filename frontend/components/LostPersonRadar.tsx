@@ -83,12 +83,12 @@ export function LostPersonRadar() {
   };
 
   const handleDispatchOfficer = (id: string, name: string, camera: string) => {
-    setAlertSent(`🚨 Emergency Patrol Alert sent to nearest officer at ${camera} for ${name}`);
+    setAlertSent(`Demo dispatch preview for ${name} near ${camera}. No officer was contacted.`);
     setTimeout(() => setAlertSent(null), 5000);
   };
 
   const handlePublishWhatsApp = (id: string, name: string) => {
-    setAlertSent(`📲 WhatsApp Channel & Social Alert published for ${name}`);
+    setAlertSent(`Demo public-alert preview for ${name}. No WhatsApp or social message was sent.`);
     setTimeout(() => setAlertSent(null), 5000);
   };
 
@@ -105,11 +105,11 @@ export function LostPersonRadar() {
           </div>
           <div>
             <h2 className="font-bold text-base text-slate-100 flex items-center gap-2">
-              AI Lost & Found Pilgrim Finder
-              <span className="badge-saffron">Topic #10 Social & Vision Radar</span>
+              Lost-person assistance
+              <span className="badge-saffron">Demo workflow</span>
             </h2>
             <p className="text-xs text-slate-400">
-              Facial & Visual Attribute Recognition replacing noisy loudspeaker announcements
+              Review a report, a possible sighting and the next human-approved step. Example people and sightings are simulated.
             </p>
           </div>
         </div>
@@ -204,13 +204,13 @@ export function LostPersonRadar() {
                       onClick={() => handleDispatchOfficer(person.id, person.name, person.matchCamera!)}
                       className="px-2.5 py-1 rounded bg-orange-500 hover:bg-orange-600 text-white font-medium flex items-center gap-1 transition-colors"
                     >
-                      <ShieldAlert className="w-3.5 h-3.5" /> Dispatch Police
+                      <ShieldAlert className="w-3.5 h-3.5" /> Preview dispatch
                     </button>
                     <button
                       onClick={() => handlePublishWhatsApp(person.id, person.name)}
                       className="px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-medium flex items-center gap-1 transition-colors"
                     >
-                      <Send className="w-3.5 h-3.5" /> Social/WhatsApp Alert
+                      <Send className="w-3.5 h-3.5" /> Preview public alert
                     </button>
                     <button
                       onClick={() => handleMarkReunited(person.id)}

@@ -8,7 +8,7 @@ export function CommandCopilot() {
   const [messages, setMessages] = useState<Array<{ sender: "USER" | "AI"; text: string }>>([
     {
       sender: "AI",
-      text: "Jai Shri Ram! I am the KumbhRakshak AI Copilot. Ask me about crowd density, rumors, lost persons, or emergency dispatch.",
+      text: "I am the KumbhRakshak demo guide. Ask how crowd monitoring, claim checks, lost-person assistance, or response tools work. My replies are examples, not live instructions.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -27,15 +27,15 @@ export function CommandCopilot() {
       const query = userText.toLowerCase();
 
       if (query.includes("stampede") || query.includes("crowd")) {
-        reply = "⚠️ Ram Kund Main Sector capacity is at 88%. Recommend publishing WhatsApp crowd advisory to divert incoming pilgrims to Kapila Ghat (42% capacity).";
+        reply = "Demo scenario: if a Ramkund sector shows rising crowd pressure, an operator should verify the evidence and review approved alternatives before publishing an advisory.";
       } else if (query.includes("rumor") || query.includes("fake") || query.includes("death")) {
-        reply = "❌ DEBUNKED: Viral WhatsApp claim regarding 50 deaths at Sector 4 is FALSE. CCTV cameras confirmed zero casualties; smoke was from cold-night campfires.";
+        reply = "Demo scenario: a claim enters the verification queue. Compare independent sources and record the evidence before marking it verified or contradicted.";
       } else if (query.includes("lost") || query.includes("child") || query.includes("missing")) {
-        reply = "🔎 AI Lost Person Radar actively scanning 100+ CCTV feeds. 1 child (Aarav Sharma) matched at Ram Kund North Gate (CAM-04) 2 mins ago.";
-      } else if (query.includes("temple") || query.includes("hanuman")) {
-        reply = "✅ Lete Hanuman Temple is OPEN and operating normally. Current queue wait time is 15-20 minutes.";
+        reply = "Demo scenario: a missing-person report can be recorded with last-seen details and reviewed by an authorised help team. Example matches are not live CCTV results.";
+      } else if (query.includes("temple") || query.includes("trimbak")) {
+        reply = "This demo cannot confirm live temple opening hours or queue times. Use a verified official notice for current visitor guidance.";
       } else {
-        reply = `Command received: "${userText}". Multi-agency units (Police, Medical, Fire) are currently on STANDBY across all 12 sectors.`;
+        reply = `This is a demo response to: "${userText}". Open the relevant portal to see its example workflow; no field teams were contacted.`;
       }
 
       setMessages((prev) => [...prev, { sender: "AI", text: reply }]);
@@ -47,11 +47,11 @@ export function CommandCopilot() {
       {!isOpen ? (
         <button
           onClick={() => setIsOpen(true)}
-          className="flex items-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-orange-500 to-amber-600 text-white font-bold text-xs shadow-2xl hover:scale-105 transition-all shadow-orange-500/30 border border-orange-400/40"
+          className="flex items-center gap-2 px-4 py-3 rounded-full bg-[#176b70] text-white font-bold text-sm shadow-lg hover:bg-[#10545a] transition-colors border border-[#10545a]"
         >
           <Bot className="w-5 h-5 animate-pulse" />
-          <span>Kumbh AI Copilot</span>
-          <Sparkles className="w-4 h-4 text-amber-200" />
+          <span>Demo guide</span>
+          <Sparkles className="w-4 h-4" />
         </button>
       ) : (
         <div className="w-80 sm:w-96 h-[480px] bg-slate-900/95 backdrop-blur-xl border border-slate-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-slide-up">
@@ -59,7 +59,7 @@ export function CommandCopilot() {
           <div className="flex items-center justify-between px-4 py-3 bg-slate-950 border-b border-slate-800">
             <div className="flex items-center gap-2">
               <Bot className="w-5 h-5 text-orange-400" />
-              <span className="font-bold text-sm text-slate-100">Kumbh AI Command Copilot</span>
+              <span className="font-bold text-sm text-slate-100">KumbhRakshak demo guide</span>
             </div>
             <button
               onClick={() => setIsOpen(false)}
@@ -76,7 +76,7 @@ export function CommandCopilot() {
                 key={idx}
                 className={`p-2.5 rounded-xl max-w-[85%] ${
                   m.sender === "USER"
-                    ? "ml-auto bg-orange-500 text-white font-medium"
+                    ? "ml-auto bg-[#176b70] text-white font-medium"
                     : "mr-auto bg-slate-800 text-slate-200 border border-slate-700"
                 }`}
               >
@@ -100,7 +100,7 @@ export function CommandCopilot() {
               Social Rumors?
             </button>
             <button
-              onClick={() => setInput("Status of Lete Hanuman Temple")}
+              onClick={() => setInput("Status of Trimbakeshwar Temple")}
               className="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded whitespace-nowrap"
             >
               Temple Status?
@@ -118,7 +118,7 @@ export function CommandCopilot() {
             />
             <button
               type="submit"
-              className="p-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors"
+              className="p-2 bg-[#176b70] hover:bg-[#10545a] text-white rounded-lg transition-colors"
             >
               <Send className="w-4 h-4" />
             </button>

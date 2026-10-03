@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Header } from "@/components/ui";
+import { backendRequest } from "@/lib/api";
 import { Shield, CheckCircle2, XCircle, Clock, FileCheck, RefreshCw, UserCheck, AlertTriangle } from "lucide-react";
 
 interface DispatchRecommendation {
@@ -37,6 +38,8 @@ export default function ResourcesPage() {
   const [recommendations, setRecommendations] = useState<DispatchRecommendation[]>([]);
   const [auditTrail, setAuditTrail] = useState<AuditRecord[]>([]);
   const [loading, setLoading] = useState(true);
+  const [backendUnavailable, setBackendUnavailable] = useState(false);
+  const [actionError, setActionError] = useState<string | null>(null);
   const [officerBadge, setOfficerBadge] = useState("MH-NSK-POL-4412");
   const [officerName, setOfficerName] = useState("DySP R. K. Shinde");
   const [submittingAction, setSubmittingAction] = useState<string | null>(null);
@@ -44,16 +47,17 @@ export default function ResourcesPage() {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const [recRes, auditRes] = await Promise.all([
-        fetch("http://localhost:8000/api/v1/dispatch/recommendations"),
-        fetch("http://localhost:8000/api/v1/dispatch/audit-trail"),
+      const [recData, auditData] = await Promise.all([
+        backendRequest<{ recommendations?: DispatchRecommendation[] }>("/api/v1/dispatch/recommendations"),
+        backendRequest<{ audit_trail?: AuditRecord[] }>("/api/v1/dispatch/audit-trail"),
       ]);
-      const recData = await recRes.json();
-      const auditData = await auditRes.json();
-      if (recData.recommendations) setRecommendations(recData.recommendations);
-      if (auditData.audit_trail) setAuditTrail(auditData.audit_trail);
-    } catch (err) {
-      console.error("Failed to load dispatch data:", err);
+      setRecommendations(recData.recommendations || []);
+      setAuditTrail(auditData.audit_trail || []);
+      setBackendUnavailable(false);
+    } catch {
+      setBackendUnavailable(true);
+      setRecommendations([]);
+      setAuditTrail([]);
     } finally {
       setLoading(false);
     }
@@ -71,7 +75,7 @@ export default function ResourcesPage() {
   ) => {
     try {
       setSubmittingAction(actionId);
-      const res = await fetch("http://localhost:8000/api/v1/dispatch/confirm", {
+      await backendRequest("/api/v1/dispatch/confirm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -84,11 +88,10 @@ export default function ResourcesPage() {
           notes: `Action ${decision.toLowerCase()} by duty officer.`,
         }),
       });
-      if (res.ok) {
-        fetchData();
-      }
-    } catch (err) {
-      console.error("Failed to record officer decision:", err);
+      setActionError(null);
+      fetchData();
+    } catch {
+      setActionError("Decision was not recorded. Please reconnect the backend and retry.");
     } finally {
       setSubmittingAction(null);
     }
@@ -99,6 +102,8 @@ export default function ResourcesPage() {
       <Header />
 
       <main className="flex-1 max-w-[1600px] w-full mx-auto p-4 md:p-6 space-y-6">
+        {backendUnavailable && <p role="status" className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200">Dispatch service is offline. Recommendations and audit records cannot be checked.</p>}
+        {actionError && <p role="alert" className="rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-200">{actionError}</p>}
         {/* Page Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
           <div>
@@ -159,7 +164,7 @@ export default function ResourcesPage() {
 
           {recommendations.length === 0 ? (
             <div className="card p-8 text-center text-slate-400 font-mono text-xs">
-              No pending dispatch recommendations. All active incidents have been handled or no critical surges detected.
+              {backendUnavailable ? "Dispatch data is unavailable. This is not confirmation that incidents have been handled." : "No pending dispatch recommendations in the connected backend."}
             </div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">

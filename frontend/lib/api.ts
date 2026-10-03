@@ -1,8 +1,21 @@
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
+export function backendUrl(path: string): string {
+  const configured = process.env.NEXT_PUBLIC_API_URL;
+  const base = configured || (typeof window !== "undefined" && window.location.hostname === "localhost" ? API : "");
+  if (!base) throw new Error("The demo backend is not configured for this deployment.");
+  return `${base.replace(/\/$/, "")}${path}`;
+}
+
+export async function backendRequest<T>(path: string, options?: RequestInit): Promise<T> {
+  const response = await fetch(backendUrl(path), { ...options, cache: "no-store" });
+  if (!response.ok) throw new Error(`Demo backend returned ${response.status}.`);
+  return response.json() as Promise<T>;
+}
+
 export async function api<T>(path: string, options?: RequestInit): Promise<T> {
   try {
-    const res = await fetch(`${API}${path}`, {
+    const res = await fetch(backendUrl(path), {
       ...options,
       headers: { "Content-Type": "application/json", ...options?.headers },
       cache: "no-store",
@@ -10,7 +23,10 @@ export async function api<T>(path: string, options?: RequestInit): Promise<T> {
     if (!res.ok) throw new Error(`API error: ${res.status}`);
     return await res.json();
   } catch (err) {
-    console.warn(`[KumbhRakshak] Backend offline (${API}${path}). Using fallback data.`);
+    if (options?.method && options.method.toUpperCase() !== "GET") {
+      throw err;
+    }
+    console.warn(`[KumbhRakshak] Backend unavailable for ${path}. Using example data.`);
     return getFallbackData<T>(path);
   }
 }
@@ -74,7 +90,7 @@ function getFallbackData<T>(path: string): T {
       { id: "cam-4", camera_code: "CAM-785", latitude: 20.008, longitude: 73.792, status: "online", stream_type: "simulated" },
     ] as unknown as T;
   }
-  if (path.includes("/social/posts") || path.includes("/social")) {
+  if (path.includes("/social/posts")) {
     return [
       {
         id: "soc-1",

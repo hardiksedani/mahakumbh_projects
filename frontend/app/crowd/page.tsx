@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Header } from "@/components/ui";
+import { backendRequest } from "@/lib/api";
 import { Users, TrendingUp, AlertTriangle, Clock, RefreshCw, Compass, ArrowRight } from "lucide-react";
 
 interface ForecastRecord {
@@ -27,17 +28,19 @@ interface ForecastRecord {
 export default function CrowdForecastPage() {
   const [forecasts, setForecasts] = useState<ForecastRecord[]>([]);
   const [loading, setLoading] = useState(true);
+  const [backendUnavailable, setBackendUnavailable] = useState(false);
 
   const fetchForecasts = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:8000/api/predictions/run", { method: "POST" });
-      const data = await res.json();
+      const data = await backendRequest<{ predictions?: ForecastRecord[] }>("/api/predictions/run", { method: "POST" });
       if (data.predictions) {
         setForecasts(data.predictions);
       }
-    } catch (err) {
-      console.error("Failed to load forecasts:", err);
+      setBackendUnavailable(false);
+    } catch {
+      setBackendUnavailable(true);
+      setForecasts([]);
     } finally {
       setLoading(false);
     }
@@ -75,9 +78,15 @@ export default function CrowdForecastPage() {
             onClick={fetchForecasts}
             className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg border border-slate-700 transition-all w-max"
           >
-            <RefreshCw className="w-3.5 h-3.5" /> Recompute 60m Horizons
+            <RefreshCw className="w-3.5 h-3.5" /> {backendUnavailable ? "Retry backend forecast" : "Recompute 60m Horizons"}
           </button>
         </div>
+
+        {backendUnavailable && (
+          <div role="status" className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
+            Forecast service is offline. The values below are fixed example scenarios, not a current prediction.
+          </div>
+        )}
 
         {/* Horizons Cards */}
         {loading ? (

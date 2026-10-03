@@ -20,21 +20,31 @@ interface ModelRecord {
   confidence_benchmark: number;
 }
 
+function modelApiBase() {
+  return process.env.NEXT_PUBLIC_API_URL || (window.location.hostname === "localhost" ? "http://localhost:8000" : "");
+}
+
 export default function ModelsPage() {
   const [models, setModels] = useState<ModelRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [toggling, setToggling] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchModels = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:8000/api/v1/models");
+      const base = modelApiBase();
+      if (!base) throw new Error("Model API is not configured for this deployment.");
+      const res = await fetch(`${base}/api/v1/models`);
+      if (!res.ok) throw new Error(`Model API returned ${res.status}.`);
       const data = await res.json();
       if (data.models) {
         setModels(data.models);
       }
-    } catch (err) {
-      console.error("Failed to load models:", err);
+      setError(null);
+    } catch {
+      setModels([]);
+      setError("The demo backend is offline, so model telemetry is not available.");
     } finally {
       setLoading(false);
     }
@@ -47,7 +57,9 @@ export default function ModelsPage() {
   const handleToggle = async (modelName: string, currentEnabled: boolean) => {
     try {
       setToggling(modelName);
-      const res = await fetch(`http://localhost:8000/api/v1/models/${encodeURIComponent(modelName)}/toggle`, {
+      const base = modelApiBase();
+      if (!base) throw new Error("Model API is not configured for this deployment.");
+      const res = await fetch(`${base}/api/v1/models/${encodeURIComponent(modelName)}/toggle`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ enabled: !currentEnabled }),
@@ -60,7 +72,7 @@ export default function ModelsPage() {
         );
       }
     } catch (err) {
-      console.error("Failed to toggle model:", err);
+      setError(err instanceof Error ? err.message : "Could not update the model.");
     } finally {
       setToggling(null);
     }
@@ -86,7 +98,7 @@ export default function ModelsPage() {
               AI Model Registry & Telemetry Matrix
             </h1>
             <p className="text-xs text-slate-400 mt-0.5">
-              12 Independent Specialized AI Models for Simhastha Kumbh Mela 2027 Command Operations.
+              See the proposed model roles and inspect runtime details when the demo backend is connected.
             </p>
           </div>
 
@@ -98,8 +110,10 @@ export default function ModelsPage() {
               <RefreshCw className="w-3.5 h-3.5" /> Refresh Telemetry
             </button>
             <div className="text-right">
-              <div className="text-xs font-mono text-emerald-400 font-bold">12 / 12 MODELS HEALTHY</div>
-              <div className="text-[10px] text-slate-400">Mean Pipeline Latency: 16.2 ms</div>
+              <div className="text-xs font-mono text-emerald-400 font-bold">
+                {loading ? "CHECKING REGISTRY" : models.length ? `${models.filter((model) => model.enabled).length} / ${models.length} MODELS ENABLED` : "REGISTRY UNAVAILABLE"}
+              </div>
+              <div className="text-[10px] text-slate-400">Runtime values require the demo backend</div>
             </div>
           </div>
         </div>
@@ -132,6 +146,11 @@ export default function ModelsPage() {
         {loading ? (
           <div className="p-12 text-center text-slate-400 font-mono text-sm">
             Loading AI Model Registry telemetry...
+          </div>
+        ) : models.length === 0 ? (
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-8 text-center">
+            <h2 className="text-lg font-bold text-white">Model details are not available yet</h2>
+            <p className="mx-auto mt-2 max-w-xl text-sm text-slate-400">{error || "Connect the demo backend to review individual model status, thresholds, and telemetry."} The four groups above explain how the models are organised.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

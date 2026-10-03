@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Header } from "@/components/ui";
+import { backendRequest } from "@/lib/api";
 import { Home, CloudRain, AlertTriangle, CheckCircle, RefreshCw, Users, ShieldAlert } from "lucide-react";
 
 interface Shelter {
@@ -21,12 +22,12 @@ interface Shelter {
 export default function SheltersPage() {
   const [shelters, setShelters] = useState<Shelter[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showingExamples, setShowingExamples] = useState(false);
 
   const fetchShelters = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:8000/api/shelters");
-      const data = await res.json();
+      const data = await backendRequest<Shelter[]>("/api/shelters");
       if (Array.isArray(data)) {
         const mapped: Shelter[] = data.map((sh: any) => {
           const cap = Number(sh.capacity) || 1000;
@@ -53,9 +54,11 @@ export default function SheltersPage() {
           };
         });
         setShelters(mapped);
+        setShowingExamples(false);
       }
-    } catch (err) {
-      console.error("Failed to load shelters:", err);
+    } catch {
+      setShelters([]);
+      setShowingExamples(true);
     } finally {
       setLoading(false);
     }
@@ -70,6 +73,7 @@ export default function SheltersPage() {
       <Header />
 
       <main className="flex-1 max-w-[1600px] w-full mx-auto p-4 md:p-6 space-y-6">
+        {showingExamples && <p role="status" className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200">Shelter service is offline. The cards below are fixed examples, not current capacity or facility information.</p>}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
           <div>
             <div className="flex items-center gap-2">
@@ -103,20 +107,20 @@ export default function SheltersPage() {
               <CloudRain className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-sm font-bold text-white">Weather Contingency Trigger: MONITORED</div>
+              <div className="text-sm font-bold text-white">Example weather contingency scenario</div>
               <div className="text-xs text-slate-400">
-                Weather radar reports light drizzle across Panchvati sector. Covered transit halls are pre-activated.
+                Illustrative rain response workflow. Confirm conditions and shelter status with live sources before action.
               </div>
             </div>
           </div>
           <span className="text-xs font-mono text-blue-400 bg-blue-500/10 border border-blue-500/20 px-3 py-1 rounded-lg">
-            OVERALL SHELTER OCCUPANCY: 52%
+            EXAMPLE OCCUPANCY: 52%
           </span>
         </div>
 
         {/* Shelters Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {(shelters.length > 0 ? shelters : [
+          {(shelters.length > 0 ? shelters : showingExamples ? [
             {
               id: "sh-1",
               name: "Sadhu Gram Transit Pavilion Alpha",
@@ -147,7 +151,7 @@ export default function SheltersPage() {
               weather_shielding: "Heavy Duty Tarpaulin",
               diversion_status: "ACCEPTING",
             },
-          ]).map((sh) => {
+          ] : []).map((sh) => {
             const pct = sh.occupancy_pct !== undefined ? Math.round(sh.occupancy_pct) : Math.round(((sh.occupied || 0) / (sh.capacity || 1)) * 100);
             const isFull = Boolean(sh.overflow_risk) || pct > 85;
             return (
@@ -217,6 +221,9 @@ export default function SheltersPage() {
             );
           })}
         </div>
+        {!loading && shelters.length === 0 && !showingExamples && (
+          <p className="card text-sm text-slate-400">No shelters were returned by the connected backend.</p>
+        )}
       </main>
     </div>
   );

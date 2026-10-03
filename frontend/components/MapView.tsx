@@ -22,7 +22,7 @@ export function MapView({ markers, center = [73.7898, 19.9975] }: { markers: Mar
         if (mapRef.current) mapRef.current.remove();
         const map = new mapboxgl.default.Map({
           container: ref.current!,
-          style: "mapbox://styles/mapbox/dark-v11",
+          style: "mapbox://styles/mapbox/light-v11",
           center: center,
           zoom: 13,
         });
@@ -42,7 +42,7 @@ export function MapView({ markers, center = [73.7898, 19.9975] }: { markers: Mar
         });
       });
     } else if (canvasRef.current) {
-      // High-tech Canvas Radar Renderer fallback
+      // Illustrative radar fallback when a map token is not configured.
       const canvas = canvasRef.current;
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
@@ -54,12 +54,12 @@ export function MapView({ markers, center = [73.7898, 19.9975] }: { markers: Mar
         const width = (canvas.width = canvas.parentElement?.clientWidth || 800);
         const height = (canvas.height = canvas.parentElement?.clientHeight || 450);
 
-        // Dark Background Grid
-        ctx.fillStyle = "#090D16";
+        // Light, readable map-like surface.
+        ctx.fillStyle = "#eff6f3";
         ctx.fillRect(0, 0, width, height);
 
         // Radar Concentric Circles
-        ctx.strokeStyle = "rgba(51, 65, 85, 0.4)";
+        ctx.strokeStyle = "rgba(80, 119, 119, 0.18)";
         ctx.lineWidth = 1;
         const centerX = width / 2;
         const centerY = height / 2;
@@ -78,24 +78,24 @@ export function MapView({ markers, center = [73.7898, 19.9975] }: { markers: Mar
         ctx.stroke();
 
         // Sector Zones Highlight
-        ctx.fillStyle = "rgba(249, 115, 22, 0.06)";
+        ctx.fillStyle = "rgba(172, 87, 45, 0.07)";
         ctx.beginPath();
         ctx.arc(centerX - 80, centerY - 40, 110, 0, Math.PI * 2);
         ctx.fill();
-        ctx.strokeStyle = "rgba(249, 115, 22, 0.3)";
+        ctx.strokeStyle = "rgba(172, 87, 45, 0.28)";
         ctx.stroke();
 
-        ctx.fillStyle = "rgba(16, 185, 129, 0.06)";
+        ctx.fillStyle = "rgba(23, 107, 112, 0.07)";
         ctx.beginPath();
         ctx.arc(centerX + 120, centerY + 50, 90, 0, Math.PI * 2);
         ctx.fill();
 
         // Sector Text Labels
-        ctx.fillStyle = "#F97316";
-        ctx.font = "bold 11px sans-serif";
-        ctx.fillText("SECTOR 1: RAM KUND (88% CAPACITY)", centerX - 160, centerY - 140);
-        ctx.fillStyle = "#10B981";
-        ctx.fillText("SECTOR 3: KAPILA GHAT (42% CAPACITY)", centerX + 60, centerY + 130);
+        ctx.fillStyle = "#8f4b2c";
+        ctx.font = "bold 12px sans-serif";
+        ctx.fillText("RAMKUND · EXAMPLE SECTOR", centerX - 160, centerY - 140);
+        ctx.fillStyle = "#176b70";
+        ctx.fillText("KAPILA GHAT · EXAMPLE SECTOR", centerX + 60, centerY + 130);
 
         // Sweep Radar Line
         angle += 0.015;
@@ -104,8 +104,8 @@ export function MapView({ markers, center = [73.7898, 19.9975] }: { markers: Mar
         ctx.arc(centerX, centerY, maxRadius, angle, angle + 0.25);
         ctx.closePath();
         const sweepGrad = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, maxRadius);
-        sweepGrad.addColorStop(0, "rgba(249, 115, 22, 0.25)");
-        sweepGrad.addColorStop(1, "rgba(249, 115, 22, 0.0)");
+        sweepGrad.addColorStop(0, "rgba(23, 107, 112, 0.12)");
+        sweepGrad.addColorStop(1, "rgba(23, 107, 112, 0.0)");
         ctx.fillStyle = sweepGrad;
         ctx.fill();
 
@@ -124,8 +124,8 @@ export function MapView({ markers, center = [73.7898, 19.9975] }: { markers: Mar
           ctx.stroke();
 
           // Label
-          ctx.fillStyle = "#CBD5E1";
-          ctx.font = "10px sans-serif";
+          ctx.fillStyle = "#19323d";
+          ctx.font = "12px sans-serif";
           ctx.fillText(m.label, x + 8, y + 3);
         });
 
@@ -138,7 +138,7 @@ export function MapView({ markers, center = [73.7898, 19.9975] }: { markers: Mar
   }, [markers, center]);
 
   return (
-    <div ref={ref} className="relative w-full h-full min-h-[420px] rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
+    <div ref={ref} className="relative w-full h-full min-h-[420px] rounded-xl overflow-hidden bg-[#eff6f3] border border-[#d8e5e0]">
       <canvas
         ref={canvasRef}
         onClick={(e) => {
@@ -157,9 +157,9 @@ export function MapView({ markers, center = [73.7898, 19.9975] }: { markers: Mar
         className="w-full h-full cursor-pointer"
       />
 
-      <div className="absolute top-3 left-3 bg-slate-900/90 backdrop-blur px-3 py-1.5 rounded-lg border border-slate-800 text-xs text-slate-300 flex items-center gap-2 pointer-events-none">
-        <span className="w-2.5 h-2.5 rounded-full bg-orange-500 animate-ping" />
-        <span>Canvas Situation Radar • Click anywhere to inspect AI CCTV Stream</span>
+      <div className="absolute top-3 left-3 bg-white/95 px-3 py-1.5 rounded-lg border border-[#d8e5e0] text-xs text-[#19323d] flex items-center gap-2 pointer-events-none">
+        <span className="w-2.5 h-2.5 rounded-full bg-[#176b70]" />
+        <span>Illustrative radar · click for a sample marker</span>
       </div>
 
       {selectedCamera && (

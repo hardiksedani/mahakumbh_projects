@@ -7,6 +7,7 @@ import { api, type SocialPost } from "@/lib/api";
 export default function SocialPage() {
   const [posts, setPosts] = useState<SocialPost[]>([]);
   const [filter, setFilter] = useState("");
+  const [feedError, setFeedError] = useState<string | null>(null);
 
   useEffect(() => {
     const q = filter ? `?verification_status=${filter}` : "";
@@ -14,14 +15,20 @@ export default function SocialPage() {
   }, [filter]);
 
   const fetchMock = async () => {
-    await api("/api/social/fetch-mock", { method: "POST" });
-    api<SocialPost[]>("/api/social/posts").then(setPosts);
+    try {
+      await api("/api/social/fetch-mock", { method: "POST" });
+      setPosts(await api<SocialPost[]>("/api/social/posts"));
+      setFeedError(null);
+    } catch {
+      setFeedError("The demo backend is offline, so new sample reports could not be fetched. The existing example feed is still available.");
+    }
   };
 
   return (
     <div className="min-h-screen">
       <Header />
       <main className="max-w-[1200px] mx-auto p-4">
+        {feedError && <p role="status" className="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200">{feedError}</p>}
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-xl font-bold">Social Intelligence</h1>
           <div className="flex gap-2">

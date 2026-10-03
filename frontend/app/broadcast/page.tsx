@@ -31,6 +31,7 @@ export default function BroadcastStudioPage() {
   const [result, setResult] = useState<MultilingualBroadcastResponse | null>(null);
   const [copiedChannel, setCopiedChannel] = useState<string | null>(null);
   const [publishedNotice, setPublishedNotice] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleTopicChange = (topicId: string) => {
     setSelectedTopic(topicId);
@@ -44,6 +45,7 @@ export default function BroadcastStudioPage() {
   const handleGenerate = async () => {
     setLoading(true);
     setPublishedNotice(null);
+    setError(null);
     try {
       const res = await api<MultilingualBroadcastResponse>("/api/social/generate-multilingual", {
         method: "POST",
@@ -55,8 +57,9 @@ export default function BroadcastStudioPage() {
         }),
       });
       setResult(res);
-    } catch (e) {
-      console.error(e);
+    } catch {
+      setResult(null);
+      setError("Advisory generation requires the demo backend. No message was generated or published.");
     } finally {
       setLoading(false);
     }
@@ -69,7 +72,7 @@ export default function BroadcastStudioPage() {
   };
 
   const handlePublish = (channelName: string) => {
-    setPublishedNotice(`✅ Successfully Disseminated to Official ${channelName} Broadcast API!`);
+    setPublishedNotice(`Demo preview for ${channelName} only. No advisory was published.`);
     setTimeout(() => setPublishedNotice(null), 5000);
   };
 
@@ -90,12 +93,12 @@ export default function BroadcastStudioPage() {
               Multilingual AI Social Media Broadcast Studio
             </h1>
             <p className="text-xs text-slate-400 mt-0.5">
-              Generates culturally authentic, legally compliant, and multilingual official advisories across X (Twitter), WhatsApp Community bulletins, and Instagram story cards.
+              Drafts multilingual advisory examples for human review across X, WhatsApp, and Instagram. This demo does not publish them.
             </p>
           </div>
           <div className="flex items-center gap-2">
             <span className="badge-green text-xs">
-              <ShieldCheck className="w-3.5 h-3.5" /> Official Verified Stamp
+              <ShieldCheck className="w-3.5 h-3.5" /> Demo preview · approval required
             </span>
           </div>
         </div>
@@ -106,6 +109,7 @@ export default function BroadcastStudioPage() {
             <span>{publishedNotice}</span>
           </div>
         )}
+        {error && <div role="alert" className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-200">{error}</div>}
 
         <div className="grid lg:grid-cols-12 gap-5">
           {/* Left Column: Generator Controls */}
@@ -163,7 +167,7 @@ export default function BroadcastStudioPage() {
               className="w-full py-2.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-orange-500/20 transition-all"
             >
               <Sparkles className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
-              {loading ? "Generating Multilingual Copy..." : "Generate 4-Language Official Broadcast"}
+              {loading ? "Generating Multilingual Copy..." : "Generate 4-Language Draft"}
             </button>
           </div>
 
@@ -223,7 +227,7 @@ export default function BroadcastStudioPage() {
                       onClick={() => handlePublish("X (Twitter)")}
                       className="px-2.5 py-1 rounded bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 border border-blue-500/40 text-[10px] font-bold flex items-center gap-1 transition-all"
                     >
-                      <Send className="w-3 h-3" /> Post Tweet
+                      <Send className="w-3 h-3" /> Preview X post
                     </button>
                   </div>
                 </div>
@@ -262,7 +266,7 @@ export default function BroadcastStudioPage() {
                       onClick={() => handlePublish("WhatsApp Community Channel")}
                       className="px-2.5 py-1 rounded bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold flex items-center gap-1 transition-all"
                     >
-                      <Send className="w-3 h-3" /> Push to Channel
+                      <Send className="w-3 h-3" /> Preview channel post
                     </button>
                   </div>
                 </div>
@@ -301,7 +305,7 @@ export default function BroadcastStudioPage() {
                       onClick={() => handlePublish("Instagram Official Handle")}
                       className="px-2.5 py-1 rounded bg-pink-500/20 hover:bg-pink-500/30 text-pink-300 border border-pink-500/40 text-[10px] font-bold flex items-center gap-1 transition-all"
                     >
-                      <Send className="w-3 h-3" /> Publish Story
+                      <Send className="w-3 h-3" /> Preview story
                     </button>
                   </div>
                 </div>

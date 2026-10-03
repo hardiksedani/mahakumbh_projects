@@ -1,0 +1,12 @@
+import { pathToFileURL } from 'node:url';
+const modulePath = 'C:/Users/hardi/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/@oai/artifact-tool/dist/artifact_tool.mjs';
+const { FileBlob, PresentationFile } = await import(pathToFileURL(modulePath).href);
+const deck = await PresentationFile.importPptx(await FileBlob.load('C:/Users/hardi/OneDrive/Desktop/Role_of_Social_Media_in_Mahakumbh_PBL_Presentation.pptx'));
+const source = deck.slides.getItem(10);
+console.log('before', deck.slides.items.length, source.shapes.items.length);
+const copy = source.duplicate();
+console.log('after', deck.slides.items.length, copy.shapes.items.length);
+console.log(copy.shapes.items.map(s => ({name:s.name, text:String(s.text).slice(0,60), pos:s.position})));
+copy.moveTo(10);
+console.log('position', deck.slides.items.indexOf(copy));
+console.log('text style', deck.resolve('sh/yd0ny1wb').text.style);
